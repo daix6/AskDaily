@@ -1,0 +1,19 @@
+{
+  "name": "ask-daily",
+  "version": "0.0.1",
+  "description": "Ask One Technologic Question Everyday.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/daix6/AskDaily.git"
+  },
+  "author": "Shawn Dai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/daix6/AskDaily/issues"
+  },
+  "homepage": "https://gitlab.com/daix6/AskDaily#README"
+}
