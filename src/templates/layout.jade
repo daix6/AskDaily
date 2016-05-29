@@ -1,0 +1,20 @@
+doctype
+html
+  head
+    meta(charset='utf-8')
+    title= title
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='../../css/tomorrow.css')
+    link(rel='stylesheet', href='../../css/question.css')
+  body.light
+    header
+      h1= question
+    main
+      != contents
+    aside
+      nav
+        ul
+          li.theme Night
+          li
+            a(href='/index.html') Index
+    script(type='text/javascript' src='../../js/switch-theme.js')

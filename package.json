@@ -1,7 +1,7 @@
 {
   "name": "ask-daily",
   "version": "0.0.1",
-  "description": "Ask One Technologic Question Everyday.",
+  "description": "Ask One Technological Question Everyday.",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +15,27 @@
   "bugs": {
     "url": "https://gitlab.com/daix6/AskDaily/issues"
   },
-  "homepage": "https://gitlab.com/daix6/AskDaily#README"
+  "homepage": "https://gitlab.com/daix6/AskDaily#README",
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "browser-sync": "^2.12.10",
+    "cssnano": "^3.6.2",
+    "cssnext": "^1.8.4",
+    "gulp": "^3.9.1",
+    "gulp-front-matter": "^1.3.0",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-layout": "0.0.3",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-markdown": "^1.2.0",
+    "gulp-postcss": "^6.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "jade": "^1.11.0",
+    "lodash": "^4.13.1",
+    "merge-stream": "^1.0.0",
+    "webpack-stream": "^3.2.0"
+  },
+  "dependencies": {
+    "moment": "^2.13.0",
+    "highlight.js": "^9.4.0"
+  }
 }
