@@ -6,7 +6,11 @@ const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 
 const merge = require('merge-stream');
-const webpack = require('webpack-stream');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const vueify = require('vueify');
+const babelify = require('babelify');
 
 const _ = require('lodash');
 const highlight = require('highlight.js');
@@ -20,7 +24,9 @@ const src = {
   index: './src/index.html',
   templates: './src/templates',
   css: './src/css',
-  js: './src/js'
+  js: './src/js',
+  components: './src/components',
+  webpackConfig: './webpack.config.js'
 };
 
 const dest = {
@@ -63,6 +69,36 @@ function packJS() {
 
 gulp.task('js', () => packJS());
 
+// function calendar(entry) {
+//   let config = require(src.webpackConfig);
+//   return gulp.src(entry)
+//     .pipe(webpack(config))
+//     .pipe(gulp.dest(dest.js))
+//     .pipe(bs.stream());
+// }
+
+// gulp.task('calendar', () => calendar(`${src.components}/index.js`));
+
+gulp.task('calendar', () => {
+  let b = browserify({
+    entries: `${src.components}/index.js`,
+    debug: true,
+    transform: [babelify, vueify]
+  });
+
+  return b.bundle()
+    .pipe(source('calendar.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest(dest.js))
+    .pipe(bs.stream());
+});
+
+gulp.task('index', () => {
+  return gulp.src(src.index)
+    .pipe(gulp.dest(dest.root))
+    .pipe(bs.stream());
+})
+
 function layoutQ(file) {
   let date = path.basename(file.path, '.html');
   let title = moment(date, "YYYY-MM-DD").format('MMMM D, YYYY');
@@ -77,6 +113,7 @@ function markdwon2html() {
   let hl = (code) => highlight.highlightAuto(code).value;
 
   return gulp.src(`${src.qs}/**/*.md`)
+    .pipe($.changed(dest.root, { extension: '.html' }))
     .pipe($.frontMatter())
     .pipe($.markdown({ highlight: hl }))
     .pipe($.layout(layoutQ))
@@ -86,7 +123,11 @@ function markdwon2html() {
 
 gulp.task('questions', () => markdwon2html());
 
-gulp.task('build', ['css', 'questions', 'js']);
+gulp.task('build-index', ['calendar', 'index']);
+
+gulp.task('build-qs', ['questions', 'css', 'js']);
+
+gulp.task('build', ['build-index', 'build-qs']);
 
 gulp.task('serve', ['build'], () => {
   bs.init({
@@ -99,5 +140,7 @@ gulp.task('serve', ['build'], () => {
   gulp.watch(`${src.templates}/**/*.jade`, ['questions']);
   gulp.watch(`${src.css}/**/*.css`, ['css']);
   gulp.watch(`${src.js}/**/*.js`, ['js']);
+  gulp.watch([src.webpackConfig, `${src.components}/**/*`], ['calendar']);
+  gulp.watch(src.index, ['index']);
   gulp.watch(`${dest.root}/**/*`).on('change', bs.reload);
 });
