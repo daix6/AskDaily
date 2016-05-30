@@ -26,8 +26,10 @@ const src = {
   css: './src/css',
   js: './src/js',
   components: './src/components',
-  webpackConfig: './webpack.config.js'
+  vueConfig: './vue.config.js'
 };
+
+vueify.compiler.applyConfig(require(src.vueConfig));
 
 const dest = {
   root: './dest',
@@ -43,15 +45,17 @@ function packCSS() {
     .pipe(gulp.dest(dest.css));
 
   let processors = [
+    require('postcss-import'),
     require('cssnext')(),
     require('autoprefixer')({ browsers: ['last 5 version'] }),
     require('cssnano')()
   ];
 
-  let normal = gulp.src(`${src.css}/**/*.css`)
+  let css = [`${src.css}/question.css`, `${src.css}/index.css`];
+  let normal = gulp.src(css)
     .pipe($.sourcemaps.init())
     .pipe($.postcss(processors))
-      .on('error', (e) => console.log(e))
+      .on('error', (e) => console.log(e.stack))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(dest.css))
     .pipe(bs.stream());
@@ -69,24 +73,16 @@ function packJS() {
 
 gulp.task('js', () => packJS());
 
-// function calendar(entry) {
-//   let config = require(src.webpackConfig);
-//   return gulp.src(entry)
-//     .pipe(webpack(config))
-//     .pipe(gulp.dest(dest.js))
-//     .pipe(bs.stream());
-// }
-
-// gulp.task('calendar', () => calendar(`${src.components}/index.js`));
-
 gulp.task('calendar', () => {
   let b = browserify({
-    entries: `${src.components}/index.js`,
+    entries: `${src.components}/calendar.js`,
     debug: true,
     transform: [babelify, vueify]
   });
 
-  return b.bundle()
+  return b
+    .bundle()
+      .on('error', (e) => console.error(e))
     .pipe(source('calendar.js'))
     .pipe(buffer())
     .pipe(gulp.dest(dest.js))
@@ -140,7 +136,7 @@ gulp.task('serve', ['build'], () => {
   gulp.watch(`${src.templates}/**/*.jade`, ['questions']);
   gulp.watch(`${src.css}/**/*.css`, ['css']);
   gulp.watch(`${src.js}/**/*.js`, ['js']);
-  gulp.watch([src.webpackConfig, `${src.components}/**/*`], ['calendar']);
+  gulp.watch([src.vueConfig, `${src.components}/*`], ['calendar']);
   gulp.watch(src.index, ['index']);
   gulp.watch(`${dest.root}/**/*`).on('change', bs.reload);
 });

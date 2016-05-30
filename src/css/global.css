@@ -1,0 +1,50 @@
+@import "vars.css";
+html {
+  font-size: 16px;
+}
+
+@media (--small) {
+  html {
+    font-size: 14px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  overflow: hidden;
+}
+
+main {
+  max-width: 40rem;
+  margin: 2rem auto;
+}
+
+@media (--small) {
+  main {
+    padding: 0 2rem;
+  }
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 2rem 0;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin: 1.8rem 0 1.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem;
+}
+
+ul, ol, li, pre, p {
+  margin: 0.8em 0;
+}

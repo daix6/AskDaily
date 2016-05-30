@@ -1,0 +1,46 @@
+.light {
+  color: var(--light-text);
+  background-color: var(--light-bg);
+}
+
+.light header {
+  color: var(--dark-text);
+  background-color: var(--light-dark);
+}
+
+.light h2 {
+  border-bottom-color: var(--light-border);
+}
+
+.light pre, .light blockquote {
+  background-color: var(--light-code);
+
+  border-left-color: var(--light-dark-s);
+}
+
+.light nav li {
+  background-color: var(--light-code);
+}
+
+.dark {
+  color: var(--dark-text);
+  background-color: var(--dark-bg);
+}
+
+.dark header {
+  background-color: var(--dark-light);
+}
+
+.dark h2 {
+  border-bottom-color: var(--dark-border);
+}
+
+.dark pre, .dark blockquote {
+  background-color: var(--dark-code);
+
+  border-left-color: var(--dark-border);
+}
+
+.dark nav li {
+  background-color: var(--dark-code);
+}

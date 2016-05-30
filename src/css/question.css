@@ -1,44 +1,12 @@
-:root {
-  --serif: Georgia, Cambria, Times New Roman, Times, serif;
-  --sans: Trebuchet MS, Helvetica Neue, Helvetica, Arial, sans-serif;
-  --mono: Menlo, Monaco, Consolas, lucida console ,Courier New, monospace;
-
-  --light-bg: #FAFAFA;
-  --light-code: #F5F5F5;
-  --light-dark: #303030;
-  --light-dark-s: #424242;
-  --light-text: color(#000 alpha(87%));
-  --light-text-s: color(#000 alpha(54%));
-  --light-border: color(#000 alpha(12%));
-
-  --dark-bg: #303030;
-  --dark-code: #424242;
-  --dark-light: #212121;
-  --dark-text: color(#fff alpha(95%));
-  --dark-text-s: color(#fff alpha(70%));
-  --dark-border: color(#fff alpha(12%));
-}
-
-@custom-media --small (max-width: 768px);
-
-html {
-  font-size: 16px;
-}
-
-@media (--small) {
-  html {
-    font-size: 14px;
-  }
-}
+@import "global.css";
+@import "theme-q.css";
 
 body {
-  margin: 0;
-  padding: 0;
-
   font-family: var(--serif);
 }
 
-header, h1, h2, h3 {
+h1, h2, h3 {
+  font-weight: 400;
   font-family: var(--sans);
 }
 
@@ -48,15 +16,7 @@ code {
   font-family: var(--mono);
 }
 
-header {
-  text-align: center;
-  overflow: hidden;
-}
-
 main {
-  max-width: 40rem;
-  margin: 2rem auto;
-
   line-height: 1.5;
   word-spacing: 0.1rem;
   letter-spacing: 0.02rem;
@@ -104,81 +64,11 @@ blockquote, pre {
   border-left-width: 0.4rem;
 }
 
-h1, h2, h3 {
-  font-weight: 400;
-}
-
 h2 {
   border-bottom-style: solid;
   border-bottom-width: 1px;
 }
 
-h1 {
-  font-size: 2.5rem;
-  margin: 2rem 0;
-}
-
-h2 {
-  font-size: 1.8rem;
-  margin: 1.8rem 0 1.5rem;
-}
-
-h3 {
-  font-size: 1.5rem;
-  margin: 1.5rem 0 1rem;
-}
-
-ul, ol, li, pre, p {
-  margin: 0.8em 0;
-}
-
 ul {
   padding-left: 1.5rem;
-}
-
-.light {
-  color: var(--light-text);
-  background-color: var(--light-bg);
-}
-
-.light header {
-  color: var(--dark-text);
-  background-color: var(--light-dark);
-}
-
-.light h2 {
-  border-bottom-color: var(--light-border);
-}
-
-.light pre, .light blockquote {
-  background-color: var(--light-code);
-
-  border-left-color: var(--light-dark-s);
-}
-
-.light nav li {
-  background-color: var(--light-code);
-}
-
-.dark {
-  color: var(--dark-text);
-  background-color: var(--dark-bg);
-}
-
-.dark header {
-  background-color: var(--dark-light);
-}
-
-.dark h2 {
-  border-bottom-color: var(--dark-border);
-}
-
-.dark pre, .dark blockquote {
-  background-color: var(--dark-code);
-
-  border-left-color: var(--dark-border);
-}
-
-.dark nav li {
-  background-color: var(--dark-code);
 }
