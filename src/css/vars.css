@@ -9,14 +9,18 @@
   --light-dark-s: #424242;
   --light-text: color(#000 alpha(87%));
   --light-text-s: color(#000 alpha(54%));
-  --light-border: color(#000 alpha(12%));
+  --light-text-hint: color(#000 alpha(12%));
+  --light-border: var(--light-text-hint);
 
   --dark-bg: #303030;
   --dark-code: #424242;
   --dark-light: #212121;
   --dark-text: color(#fff alpha(95%));
   --dark-text-s: color(#fff alpha(70%));
-  --dark-border: color(#fff alpha(12%));
+  --dark-text-hint: color(#fff alpha(12%));
+  --dark-border: var(--dark-text-hint);
 }
 
-@custom-media --small (max-width: 768px);
+@custom-media --m (max-width: 768px);
+
+@custom-media --s (max-width: 450px);

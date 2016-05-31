@@ -12,6 +12,8 @@ const buffer = require('vinyl-buffer');
 const vueify = require('vueify');
 const babelify = require('babelify');
 
+const ls = require('bluebird').promisify(require('node-dir').files);
+
 const _ = require('lodash');
 const highlight = require('highlight.js');
 const moment = require('moment');
@@ -21,7 +23,7 @@ const bs = require('browser-sync').create();
 const src = {
   root: './src',
   qs: './questions',
-  index: './src/index.html',
+  index: './src/index.jade',
   templates: './src/templates',
   css: './src/css',
   js: './src/js',
@@ -29,13 +31,13 @@ const src = {
   vueConfig: './vue.config.js'
 };
 
-vueify.compiler.applyConfig(require(src.vueConfig));
-
 const dest = {
   root: './dest',
   css: './dest/css',
   js: './dest/js'
 };
+
+vueify.compiler.applyConfig(require(src.vueConfig));
 
 function packCSS() {
   let highlightCSS = ['tomorrow.css', 'tomorrow-night.css']
@@ -91,9 +93,16 @@ gulp.task('calendar', () => {
 
 gulp.task('index', () => {
   return gulp.src(src.index)
+    .pipe($.data(ls(src.qs)
+      .then((files) => {
+        let data = 's' + files.map((item) => path.basename(item, '.md')).join(',');
+        return {data};
+      }))
+    )
+    .pipe($.jade())
     .pipe(gulp.dest(dest.root))
     .pipe(bs.stream());
-})
+});
 
 function layoutQ(file) {
   let date = path.basename(file.path, '.html');

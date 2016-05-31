@@ -22,12 +22,6 @@ main {
   letter-spacing: 0.02rem;
 }
 
-@media (--small) {
-  main {
-    padding: 0 2rem;
-  }
-}
-
 aside ul {
   position: fixed;
 

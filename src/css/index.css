@@ -3,3 +3,12 @@
 li {
   list-style: none;
 }
+
+header {
+  color: var(--dark-text);
+  background-color: var(--light-dark);
+}
+
+main {
+  margin-top: 5rem;
+}

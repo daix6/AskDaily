@@ -1,5 +1,94 @@
 @import "vars.css";
 
 .calendar {
-  color: red;
+  max-width: 24.5rem;
+  margin: 0 auto;
+
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: var(--light-text);
 }
+
+.calendar ul,
+.calendar li {
+  margin: 0;
+  padding: 0;
+}
+
+.calendar-header {
+  color: var(--light-text-s);
+}
+
+.calendar-ctrl {
+  margin-bottom: 0.5rem;
+}
+
+.calendar-ctrl li,
+.calendar-cell {
+  text-align: center;
+}
+
+.calendar-ctrl .prev {
+  float: left;
+}
+
+.calendar-ctrl .prev::before {
+  transform: rotate(225deg);
+}
+
+.calendar-ctrl .next::before {
+  transform: rotate(45deg);
+}
+
+.calendar-ctrl .next {
+  float: right;
+}
+
+.calendar-ctrl .prev,
+.calendar-ctrl .next {
+  width: 3.5rem;
+  cursor: pointer;
+}
+
+.calendar-ctrl .prev::before,
+.calendar-ctrl .next::before {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-width: 2px 2px 0 0;
+  border-style: solid;
+  border-color: var(--light-dark);
+  content: ' ';
+}
+
+.calendar-ctrl .current {
+  margin: 0 3.5rem;
+  font-weight: bold;
+}
+
+.calendar-cell {
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0.5rem 0;
+  box-sizing: border-box;
+}
+
+.calendar-day {
+  cursor: pointer;
+  border-radius: 100%;
+}
+
+.calendar-day.invalid {
+  color: var(--light-text-hint);
+}
+
+.calendar-day.now {
+  border: 1px solid pink;
+}
+
+.calendar-day a {
+  color: inherit;
+  text-decoration: none;
+}
+
