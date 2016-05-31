@@ -3,12 +3,12 @@
     <nav class='calendar-row calendar-ctrl'>
       <ul>
         <li class='prev' v-on:click='prev'></li>
-        <li v-if='today.getMonth() < month' class='next' v-on:click='next'></li>
-        <li class='current'>{{ title }}</li>
+        <li v-if='today.getFullYear() > year || today.getMonth() > month' class='next' v-on:click='next'></li>
+        <li class='current move'>{{ title }}</li>
       </ul>
     </nav>
     <div>
-      <table>
+      <table class='move'>
         <thead class='calendar-header'>
           <tr class='calendar-row'>
             <th class='calendar-cell' v-for='wd in weekdays'>{{ wd }}</th>
@@ -17,10 +17,10 @@
         <tbody class='calendar-body'>
           <tr class='calendar-row' v-for='week in weeks'>
             <td class='calendar-cell' v-for='day in week' >
-            <span class='calendar-day' v-bind:class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }' v-if='day.href && day.isActive'>
+            <span class='calendar-day' :class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }' v-if='day.href && day.isActive'>
               <a v-bind:href='day.href'>{{ day.date }}</a>
             </span>
-            <span class='calendar-day' v-bind:class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }' v-else>{{ day.date }}</span>
+            <span class='calendar-day' :class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }' v-else>{{ day.date }}</span>
             </td>
           </tr>
         </tbody>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import elementClass from 'element-class';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May',
      'June', 'July', 'August', 'September', 'October',
@@ -42,10 +43,13 @@ export default {
   data() {
     return {
       title: '',
+      move: true, // animation
       year: 0,
       month: 0,
       day: 0,
       today: new Date,
+      movePrev: false,
+      moveNext: false,
       weeks: [],
       weekdays: WEEKDAYS,
       actives: this.getActives()
@@ -60,6 +64,28 @@ export default {
     this.actives = this.getActives();
     this.render();
   },
+  watch: {
+    movePrev: (val, oldVal) => {
+      let moves = document.getElementsByClassName('move');
+
+      if (val)
+        for (let i = 0, len = moves.length; i < len; i++)
+          elementClass(moves[i]).add('move-prev');
+      else
+        for (let i = 0, len = moves.length; i < len; i++)
+          elementClass(moves[i]).remove('move-prev');
+    },
+    moveNext: (val, oldVal) => {
+      let moves = document.getElementsByClassName('move');
+
+      if (val)
+        for (let i = 0, len = moves.length; i < len; i++)
+          elementClass(moves[i]).add('move-next');
+      else
+        for (let i = 0, len = moves.length; i < len; i++)
+          elementClass(moves[i]).remove('move-next');
+    }
+  },
   methods: {
     render() {
       let curMonthFirstDate = new Date(this.year, this.month, 1).getDay(); // The first day current month
@@ -68,6 +94,7 @@ export default {
 
       this.title = `${MONTHS[this.month]} ${this.year}`;
 
+      this.weeks = [];
       for (let i = 1; i <= curMonthDays;) {
         let week = [];
         let count = 0;
@@ -78,7 +105,27 @@ export default {
 
           if (i === 1 && thisWeekDay !== 0) {
             for (let j = thisWeekDay - 1; j >= 0; j--) {
-              let prevDay = new Date(this.year, this.month - 1, lastMonthDays - j);
+              week.push({
+                date: lastMonthDays - j,
+                isNow: false,
+                isActive: false,
+                isValid: false
+              });
+              count++;
+            }
+          }
+
+          week.push({
+            date: i,
+            isNow: this.sameDay(thisDay, this.today),
+            isActive: this.isInActive(thisDay),
+            isValid: true,
+            href: this.date2href(this.year, this.month + 1, i)
+          });
+          count++;
+
+          if (i === curMonthDays && thisWeekDay !== 6) {
+            for (let j = 1; j < 7 - thisWeekDay; j++) {
               week.push({
                 date: j,
                 isNow: false,
@@ -87,37 +134,41 @@ export default {
               });
               count++;
             }
-          } else {
-            week.push({
-              date: i,
-              isNow: this.sameDay(thisDay, this.today),
-              isActive: this.isInActive(thisDay),
-              isValid: true,
-              href: this.date2href(this.year, this.month + 1, i)
-            });
-            count++;
-
-            if (i === curMonthDays && thisWeekDay !== 6) {
-              for (let j = 1; j < 7 - thisWeekDay; j++) {
-                let nextDay = new Date(this.year, this.month + 1, j);
-                week.push({
-                  date: j,
-                  isNow: false,
-                  isActive: false,
-                  isValid: false
-                });
-                count++;
-              }
-            }
-
-            i++;
           }
+
+          i++;
         }
         this.weeks.push(week);
       }
     },
-    prev() {return;},
-    next() {return;},
+    prev() {
+      if (this.month === 0) {
+        this.month = 11;
+        this.year--;
+      } else
+        this.month--;
+
+      this.move = false;
+      this.movePrev = true;
+      this.render();
+      setTimeout(() => {
+        this.movePrev = false;
+      }, 200);
+    },
+    next() {
+      if (this.month === 11) {
+        this.month = 0;
+        this.year++;
+      } else
+        this.month++;
+
+      this.move = true;
+      this.moveNext = true;
+      this.render();
+      setTimeout(() => {
+        this.moveNext = false;
+      }, 200);
+    },
     getActives() {
       return this._props.dataQs.raw.split(',');
     },

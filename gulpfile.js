@@ -12,6 +12,7 @@ const buffer = require('vinyl-buffer');
 const vueify = require('vueify');
 const babelify = require('babelify');
 
+const del = require('del');
 const ls = require('bluebird').promisify(require('node-dir').files);
 
 const _ = require('lodash');
@@ -148,4 +149,8 @@ gulp.task('serve', ['build'], () => {
   gulp.watch([src.vueConfig, `${src.components}/*`], ['calendar']);
   gulp.watch(src.index, ['index']);
   gulp.watch(`${dest.root}/**/*`).on('change', bs.reload);
+});
+
+gulp.task('clean', () => {
+  return del(`${dest.root}/*`)
 });

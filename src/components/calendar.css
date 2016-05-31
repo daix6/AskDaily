@@ -2,6 +2,7 @@
 
 .calendar {
   max-width: 24.5rem;
+  overflow: hidden;
   margin: 0 auto;
 
   font-size: 1rem;
@@ -118,4 +119,30 @@
 .calendar-day a {
   color: inherit;
   text-decoration: none;
+}
+
+.move-prev {
+  animation: prev 0.2s;
+}
+
+.move-next {
+  animation: next 0.2s;
+}
+
+@keyframes prev {
+  0% {
+    transform: translate(-24.5rem);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes next {
+  0% {
+    transform: translate(24.5rem);
+  }
+  100% {
+    transform: translate(0);
+  }
 }
