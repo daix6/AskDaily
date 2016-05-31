@@ -3,7 +3,7 @@
     <nav class='calendar-row calendar-ctrl'>
       <ul>
         <li class='prev' v-on:click='prev'></li>
-        <li class='next' v-on:click='next'></li>
+        <li v-if='today.getMonth() < month' class='next' v-on:click='next'></li>
         <li class='current'>{{ title }}</li>
       </ul>
     </nav>
@@ -16,8 +16,12 @@
         </thead>
         <tbody class='calendar-body'>
           <tr class='calendar-row' v-for='week in weeks'>
-            <td class='calendar-cell calendar-day' v-for='day in week' v-bind:class='{ "now": day.isNow, "active": day.isActive, "invalid": day.isInvalid }' ><a v-if='day.href' v-bind:href='day.href'>{{ day.date }}</a>
-            <span v-else>{{ day.date }}</span></td>
+            <td class='calendar-cell' v-for='day in week' >
+            <span class='calendar-day' v-bind:class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }' v-if='day.href && day.isActive'>
+              <a v-bind:href='day.href'>{{ day.date }}</a>
+            </span>
+            <span class='calendar-day' v-bind:class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }' v-else>{{ day.date }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -79,7 +83,7 @@ export default {
                 date: j,
                 isNow: false,
                 isActive: false,
-                isInvalid: true
+                isValid: false
               });
               count++;
             }
@@ -88,7 +92,7 @@ export default {
               date: i,
               isNow: this.sameDay(thisDay, this.today),
               isActive: this.isInActive(thisDay),
-              isInvalid: false,
+              isValid: true,
               href: this.date2href(this.year, this.month + 1, i)
             });
             count++;
@@ -100,7 +104,7 @@ export default {
                   date: j,
                   isNow: false,
                   isActive: false,
-                  isInvalid: true
+                  isValid: false
                 });
                 count++;
               }
@@ -111,7 +115,6 @@ export default {
         }
         this.weeks.push(week);
       }
-      console.log(this);
     },
     prev() {return;},
     next() {return;},
@@ -126,9 +129,17 @@ export default {
         weekday: date.getDay()
       };
     },
+    pad(num, n) {
+      let len = num.toString().length;
+      while (len < n) {
+        num = '0' + num;
+        len++;
+      }
+      return num;
+    },
     date2string(date) {
       let d = this.getDate(date);
-      return [d.year, d.month, d.day].join('-');
+      return [this.pad(d.year, 4), this.pad(d.month + 1, 2), this.pad(d.day, 2)].join('-');
     },
     sameDay(dateA, dateB) {
       let d1 = this.getDate(dateA), d2 = this.getDate(dateB);
@@ -138,15 +149,7 @@ export default {
       return this.actives.indexOf(this.date2string(date)) !== -1;
     },
     date2href(year, month, day) {
-      function pad(num, n) {
-        let len = num.toString().length;
-        while (len < n) {
-          num = '0' + num;
-          len++;
-        }
-        return num;
-      }
-      let y = pad(year, 4), m = pad(month, 2), d = pad(day, 2);
+      let y = this.pad(year, 4), m = this.pad(month + 1, 2), d = this.pad(day, 2);
       return `/${y}/${m}/${y}-${m}-${d}.html`;
     }
   }

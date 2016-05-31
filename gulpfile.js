@@ -95,7 +95,7 @@ gulp.task('index', () => {
   return gulp.src(src.index)
     .pipe($.data(ls(src.qs)
       .then((files) => {
-        let data = 's' + files.map((item) => path.basename(item, '.md')).join(',');
+        let data = files.map((item) => path.basename(item, '.md')).join(',');
         return {data};
       }))
     )
@@ -141,7 +141,7 @@ gulp.task('serve', ['build'], () => {
     }
   });
 
-  gulp.watch(`${src.qs}/**/*.md`, ['questions']);
+  gulp.watch(`${src.qs}/**/*.md`, ['questions', 'calendar']);
   gulp.watch(`${src.templates}/**/*.jade`, ['questions']);
   gulp.watch(`${src.css}/**/*.css`, ['css']);
   gulp.watch(`${src.js}/**/*.js`, ['js']);

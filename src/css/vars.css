@@ -11,6 +11,7 @@
   --light-text-s: color(#000 alpha(54%));
   --light-text-hint: color(#000 alpha(12%));
   --light-border: var(--light-text-hint);
+  --light-special: #009688;
 
   --dark-bg: #303030;
   --dark-code: #424242;
