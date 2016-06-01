@@ -17,10 +17,10 @@
         <tbody class='calendar-body'>
           <tr class='calendar-row' v-for='week in weeks'>
             <td class='calendar-cell' v-for='day in week' >
-            <span class='calendar-day' :class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }' v-if='day.href && day.isActive'>
-              <a v-bind:href='day.href'>{{ day.date }}</a>
-            </span>
-            <span class='calendar-day' :class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }' v-else>{{ day.date }}</span>
+            <a v-if='day.href && day.isActive' class='calendar-day' :class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }' :href='day.href'>
+              <span>{{ day.date }}</span>
+            </a>
+            <span v-else class='calendar-day' :class='{ "now": day.isNow, "active": day.isActive, "valid": day.isValid }'>{{ day.date }}</span>
             </td>
           </tr>
         </tbody>
@@ -120,7 +120,7 @@ export default {
             isNow: this.sameDay(thisDay, this.today),
             isActive: this.isInActive(thisDay),
             isValid: true,
-            href: this.date2href(this.year, this.month + 1, i)
+            href: this.date2href(this.year, this.month, i)
           });
           count++;
 
@@ -153,7 +153,7 @@ export default {
       this.render();
       setTimeout(() => {
         this.movePrev = false;
-      }, 200);
+      }, 100);
     },
     next() {
       if (this.month === 11) {
@@ -167,7 +167,7 @@ export default {
       this.render();
       setTimeout(() => {
         this.moveNext = false;
-      }, 200);
+      }, 100);
     },
     getActives() {
       return this._props.dataQs.raw.split(',');
@@ -201,7 +201,7 @@ export default {
     },
     date2href(year, month, day) {
       let y = this.pad(year, 4), m = this.pad(month + 1, 2), d = this.pad(day, 2);
-      return `/${y}/${m}/${y}-${m}-${d}.html`;
+      return `./${y}/${m}/${y}-${m}-${d}.html`;
     }
   }
 };

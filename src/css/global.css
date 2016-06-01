@@ -1,4 +1,5 @@
 @import "vars.css";
+
 html {
   font-size: 16px;
   font-size-adjust: none;
@@ -36,12 +37,6 @@ main {
 @media (--m) {
   main {
     padding: 0 2rem;
-  }
-}
-
-@media (--s) {
-  main {
-    padding: 0;
   }
 }
 

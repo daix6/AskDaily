@@ -10,6 +10,11 @@
   color: var(--light-text);
 }
 
+.calendar a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .calendar ul,
 .calendar li {
   margin: 0;
@@ -90,9 +95,6 @@
   line-height: 2.5rem;
 
   color: var(--light-text-s);
-  border-radius: 100%;
-
-  transition: all 0.2s ease-in-out;
 }
 
 .calendar-day.valid {
@@ -113,25 +115,29 @@
 }
 
 .calendar-day.now {
-  border: 1px solid var(--light-special);
+  border: 1px solid color(var(--light-special) alpha(50%));
 }
 
-.calendar-day a {
-  color: inherit;
-  text-decoration: none;
+.calendar-day.now.active {
+  border: none;
+}
+
+.calendar-day.active,
+.calendar-day.now {
+  border-radius: 100%;
 }
 
 .move-prev {
-  animation: prev 0.2s;
+  animation: prev 0.1s;
 }
 
 .move-next {
-  animation: next 0.2s;
+  animation: next 0.1s;
 }
 
 @keyframes prev {
   0% {
-    transform: translate(-24.5rem);
+    transform: translate(-5rem);
   }
   100% {
     transform: translate(0);
@@ -140,7 +146,7 @@
 
 @keyframes next {
   0% {
-    transform: translate(24.5rem);
+    transform: translate(5rem);
   }
   100% {
     transform: translate(0);

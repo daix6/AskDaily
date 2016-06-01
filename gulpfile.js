@@ -20,6 +20,7 @@ const highlight = require('highlight.js');
 const moment = require('moment');
 
 const bs = require('browser-sync').create();
+const ghPages = require('gh-pages');
 
 const src = {
   root: './src',
@@ -153,4 +154,11 @@ gulp.task('serve', ['build'], () => {
 
 gulp.task('clean', () => {
   return del(`${dest.root}/*`)
+});
+
+gulp.task('deploy', ['build'], () => {
+  return ghPages.publish(path.resolve(__dirname, dest.root), {
+    remote: 'github',
+    branch: 'gh-pages'
+  });
 });
