@@ -1,3 +1,7 @@
+a {
+  color: inherit;
+}
+
 .light {
   color: var(--light-text);
   background-color: var(--light-bg);
@@ -10,6 +14,14 @@
 
 .light h2 {
   border-bottom-color: var(--light-border);
+}
+
+.light code {
+  color: color(red blackness(30%));
+}
+
+.light pre code {
+  color: inherit;
 }
 
 .light pre, .light blockquote {

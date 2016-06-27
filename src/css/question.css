@@ -11,15 +11,17 @@ h1, h2, h3 {
 }
 
 code {
+  font-size: 90%;
+  font-family: var(--mono);
+}
+
+pre code {
   font-size: 80%;
   line-height: 1.3;
-  font-family: var(--mono);
 }
 
 main {
   line-height: 1.5;
-  word-spacing: 0.1rem;
-  letter-spacing: 0.02rem;
 }
 
 aside ul {
@@ -50,8 +52,17 @@ aside li a {
   text-decoration: none;
 }
 
+blockquote {
+  font-style: italic;
+}
+
+blockquote p {
+  margin: 0;
+}
+
 blockquote, pre {
   overflow-x: scroll;
+  margin-left: 1rem;
   padding: 1rem 1.5rem;
 
   border-left-style: solid;
