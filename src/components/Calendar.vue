@@ -119,7 +119,7 @@ export default {
             date: i,
             isNow: this.sameDay(thisDay, this.today),
             isActive: this.isInActive(thisDay),
-            isValid: true,
+            isValid: true && (this.month !== this.today.getMonth() || i <= this.today.getDate()),
             href: this.date2href(this.year, this.month, i)
           });
           count++;

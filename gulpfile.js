@@ -144,7 +144,7 @@ gulp.task('serve', ['build'], () => {
   });
 
   gulp.watch(`${src.qs}/**/*.md`, ['questions', 'calendar']);
-  gulp.watch(`${src.templates}/**/*.jade`, ['questions']);
+  gulp.watch(`${src.templates}/layout.jade`, ['questions']);
   gulp.watch(`${src.css}/**/*.css`, ['css']);
   gulp.watch(`${src.js}/**/*.js`, ['js']);
   gulp.watch([src.vueConfig, `${src.components}/*`], ['calendar']);

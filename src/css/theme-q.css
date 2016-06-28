@@ -2,6 +2,10 @@ a {
   color: inherit;
 }
 
+a:hover {
+  color: color(var(--light-text) blackness(50%));
+}
+
 .light {
   color: var(--light-text);
   background-color: var(--light-bg);
@@ -10,6 +14,14 @@ a {
 .light header {
   color: var(--dark-text);
   background-color: var(--light-dark);
+}
+
+.light .index {
+  background-color: var(--light-code);
+}
+
+.light .index:hover {
+  background-color: color(var(--light-code) blackness(10%));
 }
 
 .light h2 {
@@ -28,10 +40,6 @@ a {
   background-color: var(--light-code);
 
   border-left-color: var(--light-dark-s);
-}
-
-.light nav li {
-  background-color: var(--light-code);
 }
 
 .dark {
