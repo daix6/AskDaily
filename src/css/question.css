@@ -10,6 +10,28 @@ h1, h2, h3 {
   font-family: var(--sans);
 }
 
+header {
+  position: relative;
+}
+
+.tags {
+  margin: 1rem 0;
+  padding: 0;
+  text-align: center;
+  list-style: none;
+}
+
+.tags li {
+  display: inline-block;
+
+  border-radius: 5px;
+  padding: 0.2rem 0.5rem;
+}
+
+.tags li:not(:first-child) {
+  margin: 0 0 0 0.5rem;
+}
+
 code {
   font-size: 90%;
   font-family: var(--mono);
@@ -21,6 +43,7 @@ pre code {
 }
 
 main {
+  margin-top: 0;
   line-height: 1.5;
 }
 

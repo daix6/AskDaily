@@ -2,7 +2,6 @@ doctype
 html
   head
     meta(charset='utf-8')
-    meta(name='keywords' content= tag)
     meta(name='description' content= question)
     title= title
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
@@ -11,6 +10,14 @@ html
   body.light
     header
       h1= question
+    ul.tags
+      each tag in tags
+        -
+          var list = ['8', '9', 'A', 'B', 'C', 'D'];
+          var color = [1,2,3,4,5,6];
+          var str = 'background-color: #' + color.map(function() { return list[Math.floor(Math.random() * 6)]; }).join('');
+
+        li(style="#{str}")= tag
     main
       != contents
     aside

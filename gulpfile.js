@@ -110,17 +110,22 @@ function layoutQ(file) {
   let date = path.basename(file.path, '.html');
   let title = moment(date, "YYYY-MM-DD").format('MMMM D, YYYY');
 
+  console.log(file.frontMatter);
+  let tags = file.frontMatter.tags.split(',').map(item => item.match(/[^\s]+/)[0]);
+  file.frontMatter.tags = tags;
+  console.log(file.frontMatter);
+
   return _.assign(file.frontMatter, {
     layout: `${src.templates}/layout.jade`,
     title
   });
 }
 
-function markdwon2html() {
+function markdwon2html(layout) {
   let hl = (code) => highlight.highlightAuto(code).value;
 
   return gulp.src(`${src.qs}/**/*.md`)
-    .pipe($.changed(dest.root, { extension: '.html' }))
+    .pipe($.if(!layout, $.changed(dest.root, { extension: '.html' })))
     .pipe($.frontMatter())
     .pipe($.markdown({ highlight: hl }))
     .pipe($.layout(layoutQ))
@@ -129,6 +134,7 @@ function markdwon2html() {
 }
 
 gulp.task('questions', () => markdwon2html());
+gulp.task('questions-layout', () => markdwon2html(true))
 
 gulp.task('build-index', ['calendar', 'index']);
 
@@ -144,7 +150,7 @@ gulp.task('serve', ['build'], () => {
   });
 
   gulp.watch(`${src.qs}/**/*.md`, ['questions', 'calendar']);
-  gulp.watch(`${src.templates}/layout.jade`, ['questions']);
+  gulp.watch(`${src.templates}/layout.jade`, ['questions-layout']);
   gulp.watch(`${src.css}/**/*.css`, ['css']);
   gulp.watch(`${src.js}/**/*.js`, ['js']);
   gulp.watch([src.vueConfig, `${src.components}/*`], ['calendar']);
