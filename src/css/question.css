@@ -61,12 +61,15 @@ blockquote p {
 }
 
 blockquote, pre {
-  overflow-x: scroll;
   margin-left: 1rem;
   padding: 1rem 1.5rem;
 
   border-left-style: solid;
   border-left-width: 0.4rem;
+}
+
+pre {
+  overflow-x: scroll;
 }
 
 h2 {
