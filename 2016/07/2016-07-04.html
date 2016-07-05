@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What's the date time string format in JavaScript?"><title>July 4, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="../../css/tomorrow.css"><link rel="stylesheet" href="../../css/question.css"></head><body class="light"><header><h1>What's the date time string format in JavaScript?</h1></header><ul class="tags"><li style="background-color: #9DABBC">ECMAScript</li><li style="background-color: #BBADD8">Date Format</li><li style="background-color: #C9CC88">ISO 8601</li></ul><main><p>Date time string can be used as the argument of <code>Date.parse</code> method or the <code>Date</code> constructor in JavaScript.</p>
+<p>According to the specification of <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-date-time-string-format">Date Time String Format</a>:</p>
+<blockquote>
+<p>ECMAScript defines a string interchange format for date-times based upon a simplification of the ISO 8601 Extended Format. The format is as follows: <strong>YYYY-MM-DDTHH:mm:ss.sssZ</strong>.</p>
+</blockquote>
+<p>The table of all fields&#39; meanings:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">YYYY</th>
+<th style="text-align:center">MM</th>
+<th style="text-align:center">DD</th>
+<th style="text-align:center">HH</th>
+<th style="text-align:center">mm</th>
+<th style="text-align:center">ss</th>
+<th style="text-align:center">sss</th>
+<th style="text-align:center">Z</th>
+<th style="text-align:center">- T : .</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Year</td>
+<td style="text-align:center">Month</td>
+<td style="text-align:center">Day</td>
+<td style="text-align:center">Hour</td>
+<td style="text-align:center">Minute</td>
+<td style="text-align:center">Second</td>
+<td style="text-align:center">Millisecond</td>
+<td style="text-align:center">TimeZoneOffset</td>
+<td style="text-align:center">Literally</td>
+</tr>
+<tr>
+<td style="text-align:center">0000-9999</td>
+<td style="text-align:center">01-12</td>
+<td style="text-align:center">01-31</td>
+<td style="text-align:center">00-24</td>
+<td style="text-align:center">00-59</td>
+<td style="text-align:center">00-59</td>
+<td style="text-align:center">000-999</td>
+<td style="text-align:center">Z / ±HH:mm</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> If the time is in UTC, just use &quot;Z&quot; directly for <strong>Z</strong>. &quot;Z&quot; is the zone designator for the zero UTC offset. Offset from UTC are write in the format &quot;±HH:mm&quot;. For example, China&#39;s <strong>Z</strong> should be <em>+08:00</em>.</p>
+<p>There is a <a href="https://upload.wikimedia.org/wikipedia/commons/e/e8/Standard_World_Time_Zones.png">picture</a> contains all UTC time zone offsets. 本当に面白い！</p>
+<h3 id="gmt">GMT</h3>
+<p><a href="https://en.wikipedia.org/wiki/Greenwich_Mean_Time">GMT</a> means the <em>Greenwich Mean Time</em>, formerly used as the international civil time standard, which is superseded in that function by <em>Coordinated Universal Time</em>, because of earth&#39;s uneven speed in its elliptical orbit and its axial tilt.</p>
+<h3 id="ut">UT</h3>
+<p>UT, <em>Universal Time</em>, is a time standard based on Earth&#39;s rotation. It&#39;s a modern continuation of GMT. There are serval versions of it, like UTC, UT1... All UT except for UTC are based on Earth&#39;s rotation relative to distant celestial objects, but with a scaling factor and other adjustments to make them closer to solar time. UTC is based on <a href="https://en.wikipedia.org/wiki/International_Atomic_Time">International Atomic Time</a>, with leap seconds added to keep it within 0.9 second of UT1.</p>
+<h3 id="utc">UTC</h3>
+<p><a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC</a>, <em>Coordinated Universal Time</em>, is the primary time standard by which the world regulates clock and time. It is closely related to GMT. For most purposes, UTC is considered interchangeable with GMT, but GMT is no longer precisely defined by the scientific community.</p>
+<h3 id="iso-8601">ISO 8601</h3>
+<p><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> is an international standard convering <em>the exchange</em> of date and time-related data, issued by ISO. The purpose of this is to provide an unambiguous and well-defined method of representing dates and times.</p>
+<p>(It shocked me that the standard should charge...=&gt;<a href="http://www.iso.org/iso/home/standards/iso8601.htm">link</a>)</p>
+<h3 id="date-string-in-action">Date String in Action</h3>
+<p>There are the results of all <code>Date</code>&#39;s <em>toString</em> methods in <strong>JavaScript</strong>: (I&#39;m in China now.)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">toString</td>
+<td style="text-align:left">Mon Jul 04 2016 22:54:38 GMT+0800 (中国标准时间)</td>
+</tr>
+<tr>
+<td style="text-align:left">toJSON</td>
+<td style="text-align:left">2016-07-04T14:54:38.766Z</td>
+</tr>
+<tr>
+<td style="text-align:left">toDateString</td>
+<td style="text-align:left">Mon Jul 04 2016</td>
+</tr>
+<tr>
+<td style="text-align:left">toTimeString</td>
+<td style="text-align:left">22:54:38 GMT+0800 (中国标准时间)</td>
+</tr>
+<tr>
+<td style="text-align:left">toGMTString</td>
+<td style="text-align:left">Mon, 04 Jul 2016 14:54:38 GMT</td>
+</tr>
+<tr>
+<td style="text-align:left">toUTCString</td>
+<td style="text-align:left">Mon, 04 Jul 2016 14:54:38 GMT</td>
+</tr>
+<tr>
+<td style="text-align:left">toISOString</td>
+<td style="text-align:left">2016-07-04T14:54:38.766Z</td>
+</tr>
+<tr>
+<td style="text-align:left">toLocaleString</td>
+<td style="text-align:left">2016/7/4 下午10:54:38</td>
+</tr>
+<tr>
+<td style="text-align:left">toLocaleDateString</td>
+<td style="text-align:left">2016/7/4</td>
+</tr>
+<tr>
+<td style="text-align:left">toLocaleTimeString</td>
+<td style="text-align:left">下午10:54:38</td>
+</tr>
+</tbody>
+</table>
+<p>Now we know that GMT and UTC are time standards while ISO 8601 provides the representation form of time.</p>
+<h3 id="a-library">A Library</h3>
+<p><a href="http://momentjs.com/">Moment.js</a>, a library that parses, validates, manipulates, and displays dates in JavaScript. This website is using this library now.</p>
+<p>Example:</p>
+<pre><code class="lang-javascript">moment(<span class="hljs-string">'20160704'</span>, <span class="hljs-string">'YYYYMMDD'</span>).<span class="hljs-keyword">format</span>(<span class="hljs-string">'MMMM D, YYYY'</span>);
+<span class="hljs-comment">// July 4, 2016, exactly the title of this website.</span>
+</code></pre>
+</main><aside><nav><ul><li><a href="../../index.html" class="index">Index</a></li></ul></nav></aside></body></html>
