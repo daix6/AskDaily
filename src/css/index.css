@@ -1,4 +1,10 @@
 @import "global.css";
+@import "aside-button.css";
+
+body {
+  color: var(--light-text);
+  background-color: var(--light-bg);
+}
 
 li {
   list-style: none;
@@ -11,4 +17,16 @@ header {
 
 main {
   margin-top: 4rem;
+}
+
+.index {
+  font-family: var(--serif);
+}
+
+.index:hover {
+  color: color(var(--light-text) blackness(50%));
+}
+
+.index, .index:hover {
+  transition: all 0.2s ease-in-out;
 }

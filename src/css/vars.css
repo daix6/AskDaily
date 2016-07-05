@@ -1,7 +1,7 @@
 :root {
-  --serif: Cambria, Times New Roman, Times, serif;
-  --sans: Trebuchet MS, Helvetica Neue, Helvetica, Arial, sans-serif;
-  --mono: Menlo, Monaco, Consolas, lucida console ,Courier New, monospace;
+  --serif: Cambria, Palatino Linotype, Palatino, Liberation Serif, STSong, SimSun, serif;
+  --sans: Trebuchet MS, Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  --mono: Menlo, Monaco, Consolas, lucida console, Courier New, monospace;
 
   --light-bg: #FAFAFA;
   --light-code: #F5F5F5;

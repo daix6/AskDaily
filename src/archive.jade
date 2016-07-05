@@ -1,0 +1,24 @@
+doctype
+html
+  head
+    meta(charset='utf-8')
+    title Ask Daily - Archive
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet' type='text/css' href='./css/archive.css')
+  body
+    header
+      h1 Archive
+    main
+      dl
+        each qs, month in data
+          dt.range
+            h3= month
+            each q in qs
+              dd
+                a.link(href='#{q.link}')= q.day
+                | #{q.question}
+    aside
+      nav
+        ul
+          li
+            a.index(href='./index.html') Index

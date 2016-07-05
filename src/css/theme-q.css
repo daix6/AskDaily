@@ -1,11 +1,3 @@
-a {
-  color: inherit;
-}
-
-a:hover {
-  color: color(var(--light-text) blackness(50%));
-}
-
 .light {
   color: var(--light-text);
   background-color: var(--light-bg);

@@ -55,6 +55,18 @@ h3 {
   margin: 1.5rem 0 1rem;
 }
 
-ul, ol, li, pre, p, blockquote {
+ul, ol, dl, li, dt, dd, pre, p, blockquote {
   margin: 0.8em 0;
+}
+
+a, a:hover {
+  transition: all 0.2s ease-in-out;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: color(var(--light-text) blackness(50%));
 }

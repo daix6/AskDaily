@@ -13,7 +13,10 @@ const vueify = require('vueify');
 const babelify = require('babelify');
 
 const del = require('del');
-const ls = require('bluebird').promisify(require('node-dir').files);
+const frontMatter = require('front-matter');
+const nodeDir = require('node-dir');
+const ls = require('bluebird').promisify(nodeDir.files);
+const lsContent = require('bluebird').promisify(nodeDir.readFiles);
 
 const _ = require('lodash');
 const highlight = require('highlight.js');
@@ -26,6 +29,7 @@ const src = {
   root: './src',
   qs: './questions',
   index: './src/index.jade',
+  archive: './src/archive.jade',
   templates: './src/templates',
   css: './src/css',
   js: './src/js',
@@ -55,7 +59,7 @@ function packCSS() {
     require('cssnano')()
   ];
 
-  let css = [`${src.css}/question.css`, `${src.css}/index.css`];
+  let css = [`${src.css}/question.css`, `${src.css}/index.css`, `${src.css}/archive.css`];
   let normal = gulp.src(css)
     .pipe($.sourcemaps.init())
     .pipe($.postcss(processors))
@@ -96,7 +100,7 @@ gulp.task('calendar', () => {
 gulp.task('index', () => {
   return gulp.src(src.index)
     .pipe($.data(ls(src.qs)
-      .then((files) => {
+      .then(files => {
         let data = files.map((item) => path.basename(item, '.md')).join(',');
         return {data};
       }))
@@ -106,14 +110,39 @@ gulp.task('index', () => {
     .pipe(bs.stream());
 });
 
+gulp.task('archive', () => {
+  let questions = [];
+
+  return gulp.src(src.archive)
+    .pipe($.data(lsContent(src.qs, (err, content, filename, next) => {
+      if (err) throw err;
+      let question = frontMatter(content).attributes.question;
+      let [undefined, year, month, day] = filename.split('.')[0].split('\\');
+
+      questions.push({
+        day,
+        question,
+        range: moment(`${year}${month}`, 'YYYYMM').format('YYYY MMMM'),
+        link: `./questions/${year}/${month}/${day}.md`
+      });
+
+      next();
+    })
+      .then(files => {
+        return {data: _.groupBy(questions, 'range')};
+      })
+    ))
+    .pipe($.jade())
+    .pipe(gulp.dest(dest.root))
+    .pipe(bs.stream());
+});
+
 function layoutQ(file) {
   let date = path.basename(file.path, '.html');
   let title = moment(date, "YYYY-MM-DD").format('MMMM D, YYYY');
 
-  console.log(file.frontMatter);
-  let tags = file.frontMatter.tags.split(',').map(item => item.match(/[^\s]+/)[0]);
+  let tags = file.frontMatter.tags.split(',').map(item => item.trim());
   file.frontMatter.tags = tags;
-  console.log(file.frontMatter);
 
   return _.assign(file.frontMatter, {
     layout: `${src.templates}/layout.jade`,
@@ -136,7 +165,7 @@ function markdwon2html(layout) {
 gulp.task('questions', () => markdwon2html());
 gulp.task('questions-layout', () => markdwon2html(true))
 
-gulp.task('build-index', ['calendar', 'index']);
+gulp.task('build-index', ['calendar', 'index', 'archive']);
 
 gulp.task('build-qs', ['questions', 'css', 'js']);
 
@@ -155,6 +184,7 @@ gulp.task('serve', ['build'], () => {
   gulp.watch(`${src.js}/**/*.js`, ['js']);
   gulp.watch([src.vueConfig, `${src.components}/*`], ['calendar']);
   gulp.watch(src.index, ['index']);
+  gulp.watch(src.archive, ['archive']);
   gulp.watch(`${dest.root}/**/*`).on('change', bs.reload);
 });
 
