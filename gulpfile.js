@@ -123,7 +123,7 @@ gulp.task('archive', () => {
         day,
         question,
         range: moment(`${year}${month}`, 'YYYYMM').format('YYYY MMMM'),
-        link: `./questions/${year}/${month}/${day}.md`
+        link: `./${year}/${month}/${day}.html`
       });
 
       next();

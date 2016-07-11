@@ -77,6 +77,6 @@ h2 {
   border-bottom-width: 1px;
 }
 
-ul {
+ul, ol {
   padding-left: 1.5rem;
 }
