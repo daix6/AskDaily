@@ -4,6 +4,7 @@ const path = require('path');
 
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
+const runS = require('run-sequence');
 
 const merge = require('merge-stream');
 const browserify = require('browserify');
@@ -166,10 +167,8 @@ gulp.task('questions', () => markdwon2html());
 gulp.task('questions-layout', () => markdwon2html(true))
 
 gulp.task('build-index', ['calendar', 'index', 'archive']);
-
 gulp.task('build-qs', ['questions', 'css', 'js']);
-
-gulp.task('build', ['build-index', 'build-qs']);
+gulp.task('build', (cb) => runS('clean', ['build-index', 'build-qs'], cb));
 
 gulp.task('serve', ['build'], () => {
   bs.init({
