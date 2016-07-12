@@ -1,12 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const [_year, _month, _day] = process.argv.slice(2);
+const [_year, _month, _day] = process.argv.slice(2).map(item => +item);
 
-// Because that fs.open can only open existing directory.
+// fs.open can only open existing directory.
+
 function createDirectory(path) {
   try {
-    let stats = fs.statSync(path);
+    let stats = fs.statSync(path); // If the path does not exist, it will throw error.
     if (stats.isDirectory())
       console.error(path, 'already exists.');
     else
@@ -26,6 +27,7 @@ function createFile(path) {
       console.error(path, 'already exists and is not a file.')
   } catch(e) {
     let file = fs.openSync(path, 'w');
+    fs.writeSync(file, '---\nquestion: \ntags: \n---\n')
     fs.closeSync(file);
     console.log(path, 'created.');
   }
@@ -51,12 +53,13 @@ if (_year === 'today' || _year === undefined) {
 
   createQuestion(year, month, day);
 } else if (/\d{4}/.test(_year) && /\d{1,2}/.test(_month) && /\d{1,2}/.test(_day)) {
+
   if (_month > 12 || _month < 1) {
     console.error('Invalid month.');
     process.abort();
   }
   let dayOfMonth = new Date(_year, _month, 0);
-  if (_day < 1 || _day > dayOfMonth) {
+  if (+_day < 1 || +_day > dayOfMonth) {
     console.error('Invalid date.');
     process.abort();
   }
