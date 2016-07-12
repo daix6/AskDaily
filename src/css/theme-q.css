@@ -21,11 +21,12 @@
 }
 
 .light code {
-  color: color(red blackness(30%));
+  background-color: color(var(--light-code) blackness(10%));
 }
 
 .light pre code {
   color: inherit;
+  background-color: inherit;
 }
 
 .light pre, .light blockquote {
