@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description"><title>July 12, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="../../css/tomorrow.css"><link rel="stylesheet" href="../../css/question.css"></head><body class="light"><header><h1></h1></header><ul class="tags"><li style="background-color: #989BC9">HTML</li><li style="background-color: #CCB88C">&lt;script&gt;</li></ul><main><p>The <code>async</code> and <code>defer</code> are boolean attributes introduced in HTML5 of <code>&lt;script&gt;</code>.</p>
+<h2 id="behavior">Behavior</h2>
+<h3 id="neither">neither</h3>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"where.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>Once the HTML parser meets a <code>&lt;script&gt;</code>, the parser will stop parsing HTML and send a request to get the file (if it&#39;s external). Then, the JavaScript engine will execute the script. After the script&#39;s execution finished, the parser will continue parsing the HTML.</p>
+<h3 id="async">async</h3>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"where.js"</span> <span class="hljs-attr">async</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>Once the HTML parser meets a <code>&lt;script async&gt;</code>, the parser won&#39;t stop and the browser will send a request to download the script parallelly. Once the download finishes, the parser will stop parsing HTML if it&#39;s still parsing, and the JavaScript engine will excute the script. After the script&#39;s execution finished, the parser will continue parsing the HTML if there are contents to be parsed.</p>
+<p>A typical example, <a href="https://www.google.com/analytics/">Google Analytics</a>.</p>
+<p>BTW, <strong>the execution order of async scripts is arbitrary</strong>. Once it&#39;s downloaded, it begins to execute. So watch out the location it&#39;s placed.</p>
+<h3 id="defer">defer</h3>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"where.js"</span> <span class="hljs-attr">defer</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>Once the HTML parser meets a <code>&lt;script defer&gt;</code>, the parser won&#39;t stop and the browser will send a request to download the script parallelly. Even the download finishes, the parser will continue parsing the HTML. After the parser completes parsing the HTML, the JavaScript engine begin to execute the deferred script.</p>
+<p>BTW, the deferred scritps are guaranteed to <strong>execute in the order they appear in the document</strong>.</p>
+<h3 id="both">Both</h3>
+<p>According to the <a href="https://www.w3.org/TR/html5/scripting-1.html#attr-script-async">specification</a>:</p>
+<blockquote>
+<p>The defer attribute may be specified even if the async attribute is specified, to cause legacy Web browsers that only support defer (and not async) to fall back to the defer behavior instead of the synchronous blocking behavior that is the default.</p>
+</blockquote>
+<h2 id="usage">Usage</h2>
+<p>From my perspective:</p>
+<ol>
+<li>The script that do not involve DOM operations and do not rely on other scripts should use <code>async</code>.</li>
+<li>The script that contains DOM operations or relies on other scripts upon should use <code>defer</code>.</li>
+<li>Small scripts (and relied by <code>async</code> scripts) should just use <code>inline</code> script (and placed before <code>async</code> scripts reling them), which avoid a extra RTT and won&#39;t influence the size of HTML too much.</li>
+</ol>
+<h2 id="compatibility">Compatibility</h2>
+<ol>
+<li>&lt;= IE9, scripts with <code>defer</code>&#39;s execution order is not guaranteed. <a href="https://github.com/h5bp/lazyweb-requests/issues/42">link</a></li>
+</ol>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="http://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html">async vs defer attributes</a></li>
+<li><a href="http://peter.sh/wp-content/uploads/2010/09/execution2.jpg">A picture</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script">script - MDN</a></li>
+</ol>
+</main><aside><nav><ul><li><a href="../../index.html" class="index">Index</a></li></ul></nav></aside></body></html>

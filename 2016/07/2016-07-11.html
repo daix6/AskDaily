@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="How does the browser downloads resources from a web page?"><title>July 11, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="../../css/tomorrow.css"><link rel="stylesheet" href="../../css/question.css"></head><body class="light"><header><h1>How does the browser downloads resources from a web page?</h1></header><ul class="tags"><li style="background-color: #ACC9DB">Web</li><li style="background-color: #AD9DB8">Browser</li></ul><main><h2 id="example">Example</h2>
+<p>With a html like this:</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Test<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"style1.css"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"style2.css"</span> <span class="hljs-attr">media</span>=<span class="hljs-string">"print"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Content.... --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"image.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Image"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"script1.js"</span> <span class="hljs-attr">async</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"script2.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<ol>
+<li>Browser begin to parse the html file, and construct the DOM tree.<ol>
+<li>Meet <code>style1.css</code>: Download this file, and keep constructing the DOM tree.</li>
+<li>Meet <code>style2.css</code>: Download this file, and keep constructing the DOM tree.</li>
+<li>Meet <code>image.png</code>: Download this file, and keep constructing the DOM tree.</li>
+<li>Meet <code>script1.js</code>: Download this file, and keep constructing the DOM tree.</li>
+<li>Meet <code>script2.js</code>: Download this file, and <strong>stop DOM tree&#39;s construction</strong>.</li>
+<li>All files&#39; (except <code>script2.js</code>) downloading will be parallel (within the limit of browser).</li>
+</ol>
+</li>
+<li>After <code>script2.js</code> has finished downloading, browser will delay the script&#39;s execution until <code>style1.css</code> has finished downloading and constructing the CSSOM. (DOM tree construction is <strong>still blocked now</strong>).</li>
+<li>Once <code>script2.js</code>s execution finished, the browser will continue to construct the DOM tree.</li>
+<li>The browser will construct the render tree (combine DOM and CSSOM) once all <strong>critical resources</strong> like <code>style1.css</code>, <code>script2.js</code> here) have been processed.</li>
+<li>After <code>style2.css</code> has finished downloading, the browser begin parse it.</li>
+<li>After <code>script1.js</code> has finished downloading:<ul>
+<li>if DOM is under construction, then block the DOM construction and excute the script</li>
+<li>if <code>DOMContentLoaded</code>, then just excute it...</li>
+</ul>
+</li>
+<li>The browser will trigger <code>DOMContentedLoaded</code> event once the DOM tree&#39;s construction completed.</li>
+<li>The browser will trigger <code>load</code> event once all resources(<em>images, stylesheets, scripts</em>) have been downloaded and processed.</li>
+</ol>
+<h3 id="why">Why</h3>
+<ol>
+<li><strong>style1.css</strong> and <strong>script2.js</strong> won&#39;t influence the DOM and the render process.<ul>
+<li><code>media=&#39;print&#39;</code> means it will be used only when <strong>print</strong> it.</li>
+<li><code>async</code> means it does not process the DOM at all</li>
+</ul>
+</li>
+<li>Scripts&#39;s downloading (not async) and execution will block the DOM tree&#39;s construction.</li>
+<li>Scripts&#39;s excution must wait until all essential stylesheets have been parsed.</li>
+<li>The browser will trigger <a href="https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded"><code>DOMContentedLoaded</code></a> event once the DOM tree&#39;s construction completed.</li>
+<li>The browser will trigger <a href="https://developer.mozilla.org/en-US/docs/Web/Events/load"><code>load</code></a> event once all resources (<em>images, stylesheets, scripts</em>) have been downloaded and processed.</li>
+</ol>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://github.com/google/WebFundamentals/tree/master/src/content/en/fundamentals/performance/critical-rendering-path">Critical Rendering Path</a></li>
+<li><a href="http://stackoverflow.com/questions/2414750/difference-between-domcontentloaded-and-load-events">Difference between DOMContentLoaded and Load events</a></li>
+</ol>
+</main><aside><nav><ul><li><a href="../../index.html" class="index">Index</a></li></ul></nav></aside></body></html>
