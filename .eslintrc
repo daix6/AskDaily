@@ -1,0 +1,9 @@
+{
+  "root": true,
+  "extends": [
+    "standard"
+  ],
+  "plugins": [
+      "standard"
+  ]
+}
