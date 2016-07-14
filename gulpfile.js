@@ -4,6 +4,7 @@ const path = require('path')
 
 const gulp = require('gulp')
 const $ = require('gulp-load-plugins')()
+const emoji = require('./gulp-emoji')
 const runS = require('run-sequence')
 
 const merge = require('merge-stream')
@@ -35,6 +36,7 @@ const src = {
   css: './src/css',
   js: './src/js',
   components: './src/components',
+  emojis: './publi/svg',
   vueConfig: './vue.config.js'
 }
 
@@ -159,9 +161,16 @@ function markdwon2html (layout) {
     .pipe($.frontMatter())
     .pipe($.markdown({ highlight: hl }))
     .pipe($.layout(layoutQ))
+    .pipe(emoji(src.emojis))
     .pipe(gulp.dest(dest.root))
     .pipe(bs.stream())
 }
+
+gulp.task('test', () => {
+  return gulp.src('./a.html')
+    .pipe(emoji('./svg'))
+    .pipe(gulp.dest('test'))
+})
 
 gulp.task('questions', () => markdwon2html())
 gulp.task('questions-layout', () => markdwon2html(true))

@@ -83,3 +83,7 @@ h2 {
 ul, ol {
   padding-left: 1.5rem;
 }
+
+svg {
+  width: 1.5rem
+}

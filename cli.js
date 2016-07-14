@@ -61,7 +61,7 @@ if (_year === 'today' || _year === undefined) {
     process.abort()
   }
   let dayOfMonth = new Date(_year, _month, 0)
-  if (+_day < 1 || +_day > dayOfMonth) {
+  if (_day < 1 || _day > dayOfMonth) {
     console.error('Invalid date.')
     process.abort()
   }
