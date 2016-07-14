@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "6"
+  - "6.1"
+script: 'npm run-script test-travis'
+cache:
+  directories:
+    - node_modules
+install:
+  - "npm i --save-dev mocha"
+script: "npm run-script test-ci"

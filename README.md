@@ -1,5 +1,9 @@
 ## Ask Daily
 
+[![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+[![Build Status](https://travis-ci.org/daix6/AskDaily.svg?branch=master)](https://travis-ci.org/daix6/AskDaily)
+
+
 Ask one technological question everyday!
 
 ### Generate a Question

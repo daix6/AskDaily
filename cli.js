@@ -71,3 +71,7 @@ if (_year === 'today' || _year === undefined) {
   console.error('Wrong arguments for creating a question.')
   process.abort()
 }
+
+module.exports = {
+  createQuestion
+}
