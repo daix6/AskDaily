@@ -19,8 +19,9 @@ Easy
   - this, arrow function
 
 - fibonacci fib1_
-- multi/form-data, xxx/url-encoded
+- multipart/form-data, application/x-www-form-urlencoded
 - word-break, word-wrap
+- get, post
 
 .. _paper: http://bibliography.selflanguage.org/_static/self-power.pdf
 .. _tdz: http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified/
@@ -35,3 +36,4 @@ Hard
 - DNS
 - CRUD RESEful
 - HTTP in deep
+- HTTP 1/1.1, HTTP 2 (SPDY)

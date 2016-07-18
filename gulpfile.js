@@ -179,7 +179,7 @@ gulp.task('serve', ['build'], () => {
     }
   })
 
-  gulp.watch(`${src.qs}/**/*.md`, ['questions', 'calendar'])
+  gulp.watch(`${src.qs}/**/*.md`, ['questions', 'calendar', 'archive'])
   gulp.watch(`${src.templates}/layout.jade`, ['questions-layout'])
   gulp.watch(`${src.css}/**/*.css`, ['css'])
   gulp.watch(`${src.js}/**/*.js`, ['js'])
