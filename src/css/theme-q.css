@@ -3,7 +3,7 @@
   background-color: var(--light-bg);
 }
 
-.light header {
+.light header, .light ::selection {
   color: var(--dark-text);
   background-color: var(--light-dark);
 }
