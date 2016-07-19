@@ -4,7 +4,7 @@ const path = require('path')
 
 const gulp = require('gulp')
 const $ = require('gulp-load-plugins')()
-const emoji = require('./lib/gulp-emoji')
+const emoji = require('./lib/gulp-html-emojify')
 const runS = require('run-sequence')
 
 const merge = require('merge-stream')
@@ -35,6 +35,7 @@ const src = {
   templates: './src/templates',
   css: './src/css',
   js: './src/js',
+  images: './public/images',
   components: './src/components',
   vueConfig: './vue.config.js'
 }
@@ -42,7 +43,8 @@ const src = {
 const dest = {
   root: './dest',
   css: './dest/css',
-  js: './dest/js'
+  js: './dest/js',
+  images: './dest/images'
 }
 
 vueify.compiler.applyConfig(require(src.vueConfig))
@@ -77,11 +79,20 @@ gulp.task('css', () => packCSS())
 
 function packJS () {
   return gulp.src(`${src.js}/**/*.js`)
+    .pipe($.changed(dest.js, { extension: '.js' }))
     .pipe(gulp.dest(dest.js))
     .pipe(bs.stream())
 }
 
 gulp.task('js', () => packJS())
+
+gulp.task('images', () => {
+  return gulp.src(`${src.images}/**/*`)
+    .pipe($.changed(dest.images))
+    .pipe($.imagemin())
+    .pipe(gulp.dest(dest.images))
+    .pipe(bs.stream())
+})
 
 gulp.task('calendar', () => {
   let b = browserify({
@@ -169,7 +180,7 @@ gulp.task('questions', () => markdwon2html())
 gulp.task('questions-layout', () => markdwon2html(true))
 
 gulp.task('build-index', ['calendar', 'index', 'archive'])
-gulp.task('build-qs', ['questions', 'css', 'js'])
+gulp.task('build-qs', ['questions', 'css', 'js', 'images'])
 gulp.task('build', (cb) => runS('clean', ['build-index', 'build-qs'], cb))
 
 gulp.task('serve', ['build'], () => {
@@ -179,10 +190,11 @@ gulp.task('serve', ['build'], () => {
     }
   })
 
-  gulp.watch(`${src.qs}/**/*.md`, ['questions', 'calendar', 'archive'])
+  gulp.watch(`${src.qs}/**/*.md`, ['questions'])
   gulp.watch(`${src.templates}/layout.jade`, ['questions-layout'])
   gulp.watch(`${src.css}/**/*.css`, ['css'])
   gulp.watch(`${src.js}/**/*.js`, ['js'])
+  gulp.watch(`${src.images}/**/*`, ['images'])
   gulp.watch([src.vueConfig, `${src.components}/*`], ['calendar'])
   gulp.watch(src.index, ['index'])
   gulp.watch(src.archive, ['archive'])

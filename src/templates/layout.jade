@@ -5,8 +5,9 @@ html
     meta(name='description' content= question)
     title= title
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    link(rel='stylesheet' href='../../css/tomorrow.css')
-    link(rel='stylesheet' href='../../css/question.css')
+    base(target='_blank' href='../../')
+    link(rel='stylesheet' href='css/tomorrow.css')
+    link(rel='stylesheet' href='css/question.css')
   body.light
     header
       h1= question
@@ -25,6 +26,6 @@ html
         ul
           //- li.theme Night
           li
-            a.index(href='../../index.html') Index
-    //- script(type='text/javascript' src='../../js/switch-theme.js')
-    script(type='text/javascript' src='../../js/anchor.js' async)
+            a.index(href='index.html' target='_self') Index
+    //- script(type='text/javascript' src='js/switch-theme.js')
+    script(type='text/javascript' src='js/anchor.js' async)

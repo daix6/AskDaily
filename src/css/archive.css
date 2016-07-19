@@ -4,3 +4,10 @@
   margin-right: 1rem;
 }
 
+dd {
+  display: flex;
+}
+
+dd span {
+  flex: 1;
+}
