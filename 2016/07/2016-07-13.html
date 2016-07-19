@@ -1,0 +1,134 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="Differences between cookie, session and Web Storage?"><title>July 13, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"></head><body class="light"><header><h1>Differences between cookie, session and Web Storage?</h1></header><ul class="tags"><li style="background-color: #9B8A98">cookie</li><li style="background-color: #99ACCC">session</li><li style="background-color: #A8DBCA">Web Storage</li><li style="background-color: #9BDBCA">HTTP</li></ul><main><h2 id="cookie">Cookie</h2>
+<p>HTTP is a stateless protocol, but there are many situations where we need to get stateful infomation...Cookies were designed for this to be <em>a reliable mechanism for websibites to remember stateful information</em>.</p>
+<p>A cookie is a small piece of data <strong>sent from a website and stored in the user&#39;s web browser</strong> while the user is browsing.</p>
+<h3 id="expires-max-age">Expires &amp; Max-Age</h3>
+<ul>
+<li><code>Expires</code> defines a specific date and time when the user agent should delete the cookie, with the format <code>Wdy, DD Mon YYYY HH:MM:SS GMT</code>.</li>
+<li>If <code>Expires</code> defines a date in the past, the user agent will <em>delete it right away</em>.</li>
+<li><code>Max-Age</code> defines the cookie&#39;s expiration as an interval of seconds in the future relative to the time the browser received the cookie.</li>
+<li>Cookies without <code>Expires</code> and <code>Max-Age</code> will be set as <strong>session cookies</strong>, it will be <em>deleted after the user closes their user agents (browser)</em>.</li>
+</ul>
+<h3 id="domain-path">Domain &amp; Path</h3>
+<ul>
+<li><code>Domain</code> and <code>Path</code> define the scope of the cookie. If not specified by the server, they default to the domain (not including sub domains) and path of the requested resource.</li>
+<li><code>Domain</code> can <strong>only</strong> be set on <em>the current resource&#39;s top domain and its sub domains</em>.</li>
+</ul>
+<h3 id="secure-httponly">Secure &amp; HttpOnly</h3>
+<ul>
+<li><code>Secure</code> and <code>HttpOnly</code> are flags indicating the behaviors the cookie should be enabled.</li>
+<li><code>Secure</code> defines whether the cookie communication should be <em>limited to encryted transmission</em> (HTTPS), directing user agents to use cookies <strong>only via secure/encrypted connections</strong>.</li>
+<li><code>HttpOnly</code> directs the user agent <em>not to expose cookies through channels other than HTTP(S) requests</em>. If enabled, the cookie <strong>cannot be accessed via client-side scripting languages (JavaScript)</strong>, which can avoid XSS partly.</li>
+</ul>
+<h3 id="limit">Limit</h3>
+<p>The user agents should provide:</p>
+<ul>
+<li><strong>at least</strong> 4096 bytes per cookie</li>
+<li>at least 50 cookies per domain</li>
+<li>at least 3000 cookies total</li>
+</ul>
+<h3 id="how">How</h3>
+<p>Add fields in HTTP header.</p>
+<ol>
+<li><p>Server <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><circle cx="32" cy="32" r="30" fill="#4fd1d9"/><path fill="#fff" d="m33.7 16l15.3 16-15.3 16v-10.6h-18.7v-10.3h18.7z"/></svg> User Agent</p>
+<pre><code class="lang-bnf"> Set-Cookie: key=value[<span class="hljs-string">; Expires=date</span>][<span class="hljs-symbol">; Max-Age=seconds</span>][<span class="hljs-string">; Domain=domain</span>][<span class="hljs-symbol">; Path=path</span>][<span class="hljs-string">; Secure</span>][<span class="hljs-symbol">; HttpOnly</span>]
+</code></pre>
+</li>
+<li><p>User Agent <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><circle cx="32" cy="32" r="30" fill="#4fd1d9"/><path fill="#fff" d="m33.7 16l15.3 16-15.3 16v-10.6h-18.7v-10.3h18.7z"/></svg> Server</p>
+<pre><code class="lang-bnf"> Cookie: <span class="hljs-built_in">key</span>=<span class="hljs-built_in">value</span>
+</code></pre>
+</li>
+</ol>
+<h3 id="third-party-cookie">Third-Party Cookie</h3>
+<p>A web page may contain images or other components stored on servers in other domains (advertisements or something). Cookies that are set during retrieval of these components are called <strong>third-party cookies</strong>. These cookies can be used to track a user across multiple sites by advertsing companies (where they placed the advertising components).</p>
+<p><a href="https://en.wikipedia.org/wiki/HTTP_cookie#/media/File:Third_party_cookie.png"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Third_party_cookie.png" alt="Example"></a></p>
+<h3 id="cookies-theft-session-hijacking">Cookies Theft &amp;&amp; Session Hijacking</h3>
+<ul>
+<li>Network Eavesdropping (Man-in-the-Middle Attack)</li>
+<li>DNS Cache Poisoning (publishing false sub-domain)</li>
+<li>XSS (Cross-Site Scripting)</li>
+<li>CSRF (Cross-Site Request Forgery)</li>
+</ul>
+<p>Details in the future. <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><circle cx="32" cy="32" r="30" fill="#ffdd67"/><path d="m49.7 34.4c-.4-.5-1.1-.4-1.9-.4-15.8 0-15.8 0-31.6 0-.8 0-1.5-.1-1.9.4-3.9 5 .7 19.6 17.7 19.6 17 0 21.6-14.6 17.7-19.6" fill="#664e27"/><path d="m33.8 41.7c-.6 0-1.5.5-1.1 2 .2.7 1.2 1.6 1.2 2.8 0 2.4-3.8 2.4-3.8 0 0-1.2 1-2 1.2-2.8.3-1.4-.6-2-1.1-2-1.6 0-4.1 1.7-4.1 4.6 0 3.2 2.7 5.8 6 5.8 3.3 0 6-2.6 6-5.8-.1-2.8-2.7-4.5-4.3-4.6" fill="#4c3526"/><path d="m24.3 50.7c2.2 1 4.8 1.5 7.7 1.5 2.9 0 5.5-.6 7.7-1.5-2.1-1.1-4.7-1.7-7.7-1.7s-5.6.6-7.7 1.7" fill="#ff717f"/><path d="m47 36c-15 0-15 0-29.9 0-2.1 0-2.1 4-.1 4 10.4 0 19.6 0 30 0 2 0 2-4 0-4" fill="#fff"/><g fill="#65b1ef"><path d="m59.4 36.9c7.3 7.7-2.6 18.1-9.9 10.4-5.3-5.6-5.6-16.3-5.6-16.3s10.2.3 15.5 5.9"/><path d="m14.5 47.3c-7.3 7.7-17.2-2.7-9.9-10.4 5.3-5.6 15.5-5.9 15.5-5.9s-.3 10.7-5.6 16.3"/></g><g fill="#664e27"><path d="m28.5 28.7c-1.9-5.1-4.7-7.7-7.5-7.7s-5.6 2.6-7.5 7.7c-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7 2.2 0 4.4.8 6.2 2.7.6.5 1.5-.4 1.3-.9"/><path d="m50.4 28.7c-1.9-5.1-4.7-7.7-7.5-7.7s-5.6 2.6-7.5 7.7c-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7s4.4.8 6.2 2.7c.5.5 1.5-.4 1.3-.9"/></g></svg></p>
+<h2 id="session">Session</h2>
+<p>Sessions are <strong>server-side</strong> files / data that contain user information. Sessions have a unique ID that maps them to specific users. This ID can be passed in the URL or saved into a session cookie.</p>
+<h3 id="session-id">Session ID</h3>
+<blockquote>
+<p>A session token is a unique identifier that is generated and sent from a server to a client to identify the current interaction session. The client usually stores and sends the token as an <strong>HTTP cookie</strong> and/or sends it as <strong>a parameter in GET or POST queries</strong>.</p>
+<p>The reason to use session tokens is that the client only has to handle the identifier—<strong>all session data is stored on the server</strong> (usually in a database, to which the client does not have direct access) linked to that identifier.</p>
+</blockquote>
+<h2 id="web-storage">Web Storage</h2>
+<p>The <strong>Web Storage API</strong> provides mechanisms by which <strong>browsers</strong> can store key/value pairs, in a much more intuitive fashion than using cookies.</p>
+<ul>
+<li><code>sessionStorage</code> maintains a separate storage area for each given origin that&#39;s <strong>available for the duration of the page session</strong> (as long as the browser is open, including page reloads and restores)</li>
+<li><code>localStorage</code> does the same thing, but <strong>persists even when the browser is closed and reopened</strong>.</li>
+</ul>
+<h3 id="usage">Usage</h3>
+<pre><code class="lang-javascript">window<span class="hljs-selector-class">.addEventListener</span>(<span class="hljs-string">'storage'</span>, (e) =&gt; console.log(e))
+
+<span class="hljs-selector-tag">localStorage</span><span class="hljs-selector-class">.setItem</span>(<span class="hljs-string">'local'</span>, <span class="hljs-number">1</span>)
+<span class="hljs-selector-tag">localStorage</span><span class="hljs-selector-class">.getItem</span>(<span class="hljs-string">'local'</span>) <span class="hljs-comment">// 1</span>
+<span class="hljs-selector-tag">localStorage</span><span class="hljs-selector-class">.removeItem</span>(<span class="hljs-string">'local'</span>)
+<span class="hljs-selector-tag">localStorage</span><span class="hljs-selector-class">.getItem</span>(<span class="hljs-string">'local'</span>) <span class="hljs-comment">// null</span>
+<span class="hljs-selector-tag">localStorage</span><span class="hljs-selector-class">.clear</span>() <span class="hljs-comment">// remove all items</span>
+</code></pre>
+<h2 id="differences">Differences</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Cookie</th>
+<th style="text-align:center">Session</th>
+<th style="text-align:center">localStorage</th>
+<th style="text-align:center">sessionStorage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Where</td>
+<td style="text-align:center">Client</td>
+<td style="text-align:center">Server</td>
+<td style="text-align:center">Client</td>
+<td style="text-align:center">Client</td>
+</tr>
+<tr>
+<td style="text-align:center">How</td>
+<td style="text-align:center">HTTP Header / JS</td>
+<td style="text-align:center">Session ID</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center">API</td>
+<td style="text-align:center">document.cookie</td>
+<td style="text-align:center">Depend on server</td>
+<td style="text-align:center">Web Storage API</td>
+<td style="text-align:center">Web Storage API</td>
+</tr>
+<tr>
+<td style="text-align:center">Size</td>
+<td style="text-align:center">&gt;= 4KB</td>
+<td style="text-align:center">no limit (Server)</td>
+<td style="text-align:center">Vary between</td>
+<td style="text-align:center">browsers</td>
+</tr>
+<tr>
+<td style="text-align:center">Expire</td>
+<td style="text-align:center">expires &amp; max-age</td>
+<td style="text-align:center">Page duration</td>
+<td style="text-align:center">Forever (removeItem / clear)</td>
+<td style="text-align:center">Page duration</td>
+</tr>
+</tbody>
+</table>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://stackoverflow.com/questions/359434/differences-between-cookies-and-sessions">Differences between cookies and sessions?</a></li>
+<li><a href="https://stackoverflow.com/questions/19867599/what-is-the-difference-between-localstorage-sessionstorage-session-and-cookies">What is the difference between localStorage, sessionStorage, session and cookies?</a></li>
+<li><a href="https://en.wikipedia.org/wiki/HTTP_cookie">HTTP cookie - Wikipedia</a> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><g fill="#ff5a79"><path d="m23 42.4h-10l-4-40.4h18z"/><ellipse cx="18" cy="54.4" rx="7.7" ry="7.6"/><path d="m51 42.4h-10l-4-40.4h18z"/><ellipse cx="46" cy="54.4" rx="7.7" ry="7.6"/></g></svg></li>
+<li><a href="https://tools.ietf.org/html/rfc6265">HTTP State Management Mechanism - Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Session_&lpar;computer_science&rpar;#HTTP_session_token">Session (computer science) - Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Session_ID">Session ID - Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Web_storage#Storage_size">Web_storage - Wikipedia</a></li>
+<li><a href="http://dev-test.nemikor.com/web-storage/support-test/">Web Storage Support Test</a></li>
+</ol>
+</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>:

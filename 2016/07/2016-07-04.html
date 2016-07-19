@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What's the date time string format in JavaScript?"><title>July 4, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="../../css/tomorrow.css"><link rel="stylesheet" href="../../css/question.css"></head><body class="light"><header><h1>What's the date time string format in JavaScript?</h1></header><ul class="tags"><li style="background-color: #DC888A">ECMAScript</li><li style="background-color: #89DA9A">Date Format</li><li style="background-color: #DAB8BA">ISO 8601</li></ul><main><p>Date time string can be used as the argument of <code>Date.parse</code> method or the <code>Date</code> constructor in JavaScript.</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What's the date time string format in JavaScript?"><title>July 4, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"></head><body class="light"><header><h1>What's the date time string format in JavaScript?</h1></header><ul class="tags"><li style="background-color: #CBAADD">ECMAScript</li><li style="background-color: #DB888A">Date Format</li><li style="background-color: #BA8ABA">ISO 8601</li></ul><main><p>Date time string can be used as the argument of <code>Date.parse</code> method or the <code>Date</code> constructor in JavaScript.</p>
 <p>According to the specification of <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-date-time-string-format">Date Time String Format</a>:</p>
 <blockquote>
 <p>ECMAScript defines a string interchange format for date-times based upon a simplification of the ISO 8601 Extended Format. The format is as follows: <strong>YYYY-MM-DDTHH:mm:ss.sssZ</strong>.</p>
@@ -39,6 +39,7 @@
 <td style="text-align:center">00-59</td>
 <td style="text-align:center">000-999</td>
 <td style="text-align:center">Z / ±HH:mm</td>
+<td style="text-align:center">-</td>
 </tr>
 </tbody>
 </table>
@@ -47,11 +48,11 @@
 <h2 id="gmt">GMT</h2>
 <p><a href="https://en.wikipedia.org/wiki/Greenwich_Mean_Time">GMT</a> means the <em>Greenwich Mean Time</em>, formerly used as the international civil time standard, which is superseded in that function by <em>Coordinated Universal Time</em>, because of earth&#39;s uneven speed in its elliptical orbit and its axial tilt.</p>
 <h2 id="ut">UT</h2>
-<p>UT, <em>Universal Time</em>, is a time standard based on Earth&#39;s rotation. It&#39;s a modern continuation of GMT. There are serval versions of it, like UTC, UT1... All UT except for UTC are based on Earth&#39;s rotation relative to distant celestial objects, but with a scaling factor and other adjustments to make them closer to solar time. UTC is based on <a href="https://en.wikipedia.org/wiki/International_Atomic_Time">International Atomic Time</a>, with leap seconds added to keep it within 0.9 second of UT1.</p>
+<p>UT, <em>Universal Time</em>, is a time standard based on Earth&#39;s rotation. It&#39;s a modern continuation of GMT. There are several versions of it, like UTC, UT1... All UT except for UTC are based on Earth&#39;s rotation relative to distant celestial objects, but with a scaling factor and other adjustments to make them closer to solar time. UTC is based on <a href="https://en.wikipedia.org/wiki/International_Atomic_Time">International Atomic Time</a>, with leap seconds added to keep it within 0.9 second of UT1.</p>
 <h3 id="utc">UTC</h3>
 <p><a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC</a>, <em>Coordinated Universal Time</em>, is the primary time standard by which the world regulates clock and time. It is closely related to GMT. For most purposes, UTC is considered interchangeable with GMT, but GMT is no longer precisely defined by the scientific community.</p>
 <h2 id="iso-8601">ISO 8601</h2>
-<p><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> is an international standard convering <em>the exchange</em> of date and time-related data, issued by ISO. The purpose of this is to provide an unambiguous and well-defined method of representing dates and times.</p>
+<p><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> is an international standard covering <em>the exchange</em> of date and time-related data, issued by ISO. The purpose of this is to provide an unambiguous and well-defined method of representing dates and times.</p>
 <p>(It shocked me that the standard should charge...=&gt;<a href="http://www.iso.org/iso/home/standards/iso8601.htm">link</a>)</p>
 <h2 id="date-string-in-action">Date String in Action</h2>
 <p>There are the results of all <code>Date</code>&#39;s <em>toString</em> methods in <strong>JavaScript</strong>: (I&#39;m in China now.)</p>
@@ -112,4 +113,4 @@
 <pre><code class="lang-javascript">moment(<span class="hljs-string">'20160704'</span>, <span class="hljs-string">'YYYYMMDD'</span>).<span class="hljs-keyword">format</span>(<span class="hljs-string">'MMMM D, YYYY'</span>);
 <span class="hljs-comment">// July 4, 2016, exactly the title of this website.</span>
 </code></pre>
-</main><aside><nav><ul><li><a href="../../index.html" class="index">Index</a></li></ul></nav></aside></body></html>
+</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>:
