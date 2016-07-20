@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const [_year, _month, _day] = process.argv.slice(2).map(item => +item)
+const [_year, _month, _day] = process.argv.slice(2).map(item => +item ? +item : item)
 
 // fs.open can only open existing directory.
 

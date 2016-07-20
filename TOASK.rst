@@ -17,15 +17,12 @@ Easy
 
   - this, arrow function
 
-- fibonacci fib1_
 - multipart/form-data, application/x-www-form-urlencoded
 - word-break, word-wrap
 - HTTP get, post
+- Design Patterns...
 
 .. _paper: http://bibliography.selflanguage.org/_static/self-power.pdf
-.. _tdz: http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified/
-.. _tdz zh: https://github.com/Asurvovor/translation/issues/1
-.. _fib1: http://www.zcfy.cc/article/473
 
 Hard
 =====
@@ -38,3 +35,4 @@ Hard
 - HTTP 1/1.1, HTTP 2 (SPDY)
 - Cross Domain
 - MVC MVP MVVM
+- git

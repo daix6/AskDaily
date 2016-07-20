@@ -1,0 +1,35 @@
+Fibonacci:  50
+v1 takes 263637346071 ns
+v1 caculates 40730022147 times
+Result: 12586269025
+{ rss: 27127808, heapTotal: 15724544, heapUsed: 5014088 }
+Fibonacci:  50
+v2 takes 262502 ns
+v2 caculates 50 times
+Result: 12586269025
+{ rss: 28127232, heapTotal: 16773120, heapUsed: 6077288 }
+Fibonacci:  50
+v3 takes 542767 ns
+v3 caculates 51 times
+Result: 12586269025
+{ rss: 28147712, heapTotal: 16773120, heapUsed: 6097880 }
+Fibonacci:  50
+v4 takes 342634 ns
+v4 caculates 50 times
+Result: 12586269025
+{ rss: 28151808, heapTotal: 16773120, heapUsed: 6121256 }
+Fibonacci:  1000
+v2 takes 114080 ns
+v2 caculates 1000 times
+Result: 4.346655768693743e+208
+{ rss: 28155904, heapTotal: 16773120, heapUsed: 6177912 }
+Fibonacci:  1000
+v3 takes 838822 ns
+v3 caculates 1001 times
+Result: 4.346655768693743e+208
+{ rss: 28213248, heapTotal: 16773120, heapUsed: 6301064 }
+Fibonacci:  1000
+v4 takes 1621195 ns
+v4 caculates 1000 times
+Result: 4.346655768693743e+208
+{ rss: 28241920, heapTotal: 16773120, heapUsed: 6623520 }
