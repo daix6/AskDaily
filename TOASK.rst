@@ -15,13 +15,12 @@ Easy
 - closure
 - ES6
 
-  - TDZ tdz_ `tdz zh`_
   - this, arrow function
 
 - fibonacci fib1_
 - multipart/form-data, application/x-www-form-urlencoded
 - word-break, word-wrap
-- get, post
+- HTTP get, post
 
 .. _paper: http://bibliography.selflanguage.org/_static/self-power.pdf
 .. _tdz: http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified/
@@ -37,3 +36,5 @@ Hard
 - CRUD RESEful
 - HTTP in deep
 - HTTP 1/1.1, HTTP 2 (SPDY)
+- Cross Domain
+- MVC MVP MVVM

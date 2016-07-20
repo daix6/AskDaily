@@ -70,7 +70,6 @@ blockquote p {
 }
 
 blockquote, pre {
-  margin-left: 1rem;
   padding: 1rem 1.5rem;
 
   border-left-style: solid;
