@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What are multipart/form-data and application/x-www-form-urlencoded?"><title>July 17, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"></head><body class="light"><header><h1>What are multipart/form-data and application/x-www-form-urlencoded?</h1></header><ul class="tags"><li style="background-color: #DACAD8">HTTP</li><li style="background-color: #BA9ACB">POST</li></ul><main><p>Both of them are the optional values of <code>enctype</code> where the <code>&lt;form&gt;</code> element specifies the <em>content type</em> used to encode the form data set for submission to the server. There are three choices:</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What are multipart/form-data and application/x-www-form-urlencoded?"><title>July 17, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"></head><body class="light"><header><h1>What are multipart/form-data and application/x-www-form-urlencoded?</h1></header><ul class="tags"><li style="background-color: #999AED">HTTP</li><li style="background-color: #D9ABBE">POST</li></ul><main><p>Both of them are the optional values of <code>enctype</code> where the <code>&lt;form&gt;</code> element specifies the <em>content type</em> used to encode the form data set for submission to the server. There are three choices:</p>
 <ol>
 <li>application/x-www-form-urlencoded (default)</li>
 <li>multipart/form-data</li>
@@ -22,7 +22,7 @@
 </code></pre>
 <p>The corresponding HTTP request would like this:</p>
 <p><img src="images/multipart-form-data.png" alt="multipart/form-data"></p>
-<p>The <code>boundary</code> in the <code>Content-Type</code> works just like the <code>&amp;</code> in querystring, but the value shall never appear in the entries (key and value).</p>
+<p>The <code>boundary</code> in the <code>Content-Type</code> works just like the <code>&amp;</code> in querystring, but its value shall never appear in the entries (key and value).</p>
 <p>The <code>name</code> in the <code>Content-Disposition</code> is the same as the entry&#39;s name.</p>
 <h3 id="text-plain">text/plain</h3>
 <p>Do not use.</p>
@@ -42,4 +42,4 @@
 <li><a href="https://dev.w3.org/html5/html-author/charref">Character Entity Reference Chart</a></li>
 <li><a href="https://www.ietf.org/rfc/rfc2388.txt">Returning Values from Forms: multipart/form-data</a></li>
 </ol>
-</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>:
+</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>

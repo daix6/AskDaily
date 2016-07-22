@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="How does the browser downloads resources from a web page?"><title>July 11, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"></head><body class="light"><header><h1>How does the browser downloads resources from a web page?</h1></header><ul class="tags"><li style="background-color: #B8ABB9">Web</li><li style="background-color: #CADB9B">Browser</li></ul><main><h2 id="example">Example</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="How does the browser downloads resources from a web page?"><title>July 11, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"></head><body class="light"><header><h1>How does the browser downloads resources from a web page?</h1></header><ul class="tags"><li style="background-color: #9A9B9B">Web</li><li style="background-color: #DDB9A9">Browser</li></ul><main><h2 id="example">Example</h2>
 <p>With a html like this:</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
@@ -17,12 +17,12 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
 <ol>
-<li>Browser begin to parse the html file, and construct the DOM tree.<ol>
-<li>Meet <code>style1.css</code>: Download this file, and keep constructing the DOM tree.</li>
-<li>Meet <code>style2.css</code>: Download this file, and keep constructing the DOM tree.</li>
-<li>Meet <code>image.png</code>: Download this file, and keep constructing the DOM tree.</li>
-<li>Meet <code>script1.js</code>: Download this file, and keep constructing the DOM tree.</li>
-<li>Meet <code>script2.js</code>: Download this file, and <strong>stop DOM tree&#39;s construction</strong>.</li>
+<li>The browser begins to parse the html file, and construct the DOM tree.<ol>
+<li>Meets <code>style1.css</code>: Download this file, and keep constructing the DOM tree.</li>
+<li>Meets <code>style2.css</code>: Download this file, and keep constructing the DOM tree.</li>
+<li>Meets <code>image.png</code>: Download this file, and keep constructing the DOM tree.</li>
+<li>Meets <code>script1.js</code>: Download this file, and keep constructing the DOM tree.</li>
+<li>Meets <code>script2.js</code>: Download this file, and <strong>stop DOM tree&#39;s construction</strong>.</li>
 <li>All files&#39; (except <code>script2.js</code>) downloading will be parallel (within the limit of browser).</li>
 </ol>
 </li>
@@ -42,17 +42,17 @@
 <ol>
 <li><strong>style1.css</strong> and <strong>script2.js</strong> won&#39;t influence the DOM and the render process.<ul>
 <li><code>media=&#39;print&#39;</code> means it will be used only when <strong>print</strong> it.</li>
-<li><code>async</code> means it does not process the DOM at all</li>
+<li><code>async</code> implies it does not process the DOM at all</li>
 </ul>
 </li>
 <li>Scripts&#39;s downloading (not async) and execution will block the DOM tree&#39;s construction.</li>
 <li>Scripts&#39;s excution must wait until all essential stylesheets have been parsed.</li>
 <li>The browser will trigger <a href="https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded"><code>DOMContentedLoaded</code></a> event once the DOM tree&#39;s construction completed.</li>
-<li>The browser will trigger <a href="https://developer.mozilla.org/en-US/docs/Web/Events/load"><code>load</code></a> event once all resources (<em>images, stylesheets, scripts</em>) have been downloaded and processed.</li>
+<li>The browser will trigger <a href="https://developer.mozilla.org/en-US/docs/Web/Events/load"><code>load</code></a> event once all resources (<em>images, stylesheets, scripts, ...</em>) have been downloaded and processed.</li>
 </ol>
 <h2 id="references">References</h2>
 <ol>
 <li><a href="https://github.com/google/WebFundamentals/tree/master/src/content/en/fundamentals/performance/critical-rendering-path">Critical Rendering Path</a></li>
 <li><a href="http://stackoverflow.com/questions/2414750/difference-between-domcontentloaded-and-load-events">Difference between DOMContentLoaded and Load events</a></li>
 </ol>
-</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>:
+</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>
