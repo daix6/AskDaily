@@ -18,7 +18,7 @@ node cli.js year month date # specified date that should be valid.
 
 ### Fill YAML Front-Matter Headers
 
-The `cli.js` will automatically generate the front-matter header for you, which is required for generate the website. So fill out it in format.
+The `cli.js` will automatically generate the front-matter header for you, which is required for generating the website. So please fill out it in format.
 
 ```yaml
 ---
