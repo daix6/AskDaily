@@ -59,7 +59,7 @@ function packCSS () {
   let processors = [
     require('postcss-import'),
     require('cssnext')(),
-    require('autoprefixer')({ browsers: ['last 5 version'] }),
+    require('autoprefixer')({ browsers: ['last 5 versions'] }),
     require('cssnano')()
   ]
 

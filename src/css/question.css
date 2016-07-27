@@ -70,7 +70,7 @@ blockquote p {
 }
 
 blockquote, pre {
-  padding: 1rem 1.5rem;
+  padding: 0.5rem 1rem;
 
   border-left-style: solid;
   border-left-width: 0.4rem;
@@ -78,6 +78,19 @@ blockquote, pre {
 
 pre {
   overflow-x: scroll;
+}
+
+pre::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background-color: var(--light-border);
+}
+
+pre::-webkit-scrollbar-track {
+  background: none;
 }
 
 h2 {

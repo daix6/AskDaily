@@ -3,7 +3,7 @@ TO ASK LIST
 Easy
 ======
 
-- cache-control
+- cache-control (Currently finished...)
 - web security
 
   - XSS
@@ -17,10 +17,10 @@ Easy
 
   - this, arrow function
 
-- multipart/form-data, application/x-www-form-urlencoded
-- word-break, word-wrap
+- word-break, word-wrap, letter-spacing...
 - HTTP get, post
-- Design Patterns...
+- Design Patterns...(IN JS)
+
 
 .. _paper: http://bibliography.selflanguage.org/_static/self-power.pdf
 
@@ -36,3 +36,4 @@ Hard
 - Cross Domain
 - MVC MVP MVVM
 - git
+- Hardware acceleration
