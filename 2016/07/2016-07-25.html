@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What's the differences between AMD, CMD, CommonJS?"><title>July 25, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-63581862-3', 'auto');
+ga('send', 'pageview');</script></head><body class="light"><header><h1>What's the differences between AMD, CMD, CommonJS?</h1></header><ul class="tags"><li style="background-color: #E9AACC">AMD</li><li style="background-color: #A9CCAD">CommonJS</li><li style="background-color: #9EDECB">CMD</li></ul><main><h2 id="amd-asynchronous-module-definition-">AMD (Asynchronous Module Definition)</h2>
+<p>AMD is a JavaScript specification that defines an API for <strong>defining code modules and their dependencies, and loading them asynchronously if desired</strong>.</p>
+<p>The specification only defines a single function <code>define</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">define</span>(<span class="hljs-section">id</span>, dependencies, factory);
+</code></pre>
+<ul>
+<li><code>id</code>: the module name. If not specifed, defaults to the script&#39;s name. No relative ids.</li>
+<li><code>dependencies</code>: an array of dependencies, If omitted, defaults to [&#39;require&#39;, &#39;exports&#39;, &#39;module&#39;]. The dependencies must be resolved prior to the execution of the module factory function, and the resolved values should be passed as arguments to the factory function with argument position corresponding to indexes in the dependencies array.</li>
+<li><code>factory</code>: a function that should be executed to instantiate the module or an object. It should only be executed once.</li>
+</ul>
+<p>Example: </p>
+<pre><code class="lang-javascript">define(<span class="hljs-string">'one'</span>, <span class="hljs-function"><span class="hljs-params">(<span class="hljs-built_in">require</span>, exports, <span class="hljs-built_in">module</span>)</span> =&gt;</span> () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'one'</span>))
+</code></pre>
+<h3 id="requirejs">RequireJS</h3>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a></li>
+<li><a href="http://requirejs.org/">RequireJS</a></li>
+</ol>
+</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>

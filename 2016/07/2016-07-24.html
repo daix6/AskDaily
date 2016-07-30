@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What's word-break and word-wrap?"><title>July 24, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-63581862-3', 'auto');
+ga('send', 'pageview');</script></head><body class="light"><header><h1>What's word-break and word-wrap?</h1></header><ul class="tags"><li style="background-color: #E99DED">CSS</li><li style="background-color: #9AABCE">Typography</li></ul><main><h2 id="word-wrap-overflow-wrapping">word-wrap - Overflow Wrapping</h2>
+<p>The <code>overflow-wrap</code> (aka <code>word-wrap</code>) property specifies whether the user agent may <strong>arbitrarily break within a word to prevent overflow</strong> when an otherwise-unbreakable string is <strong>too long to fit within the line box</strong>.</p>
+<ol>
+<li><code>normal</code>: Lines may break <strong>only at allowed break points</strong>. (Like whitespace)</li>
+<li><code>break-word</code>: An unbreakable word (a complete word) may be broken at arbitrary points if there are no otherwise acceptable break points in the line.<br>Only work when the <code>white-space</code> property allows wrapping.</li>
+</ol>
+<h2 id="word-break-breaking-rules-for-letters">word-break - Breaking Rules for Letters</h2>
+<p>The <code>word-break</code> property specifies whether to <strong>break lines within a word</strong>.</p>
+<ol>
+<li><code>normal</code>: Words break as usual</li>
+<li><code>break-all</code>: In addition to <code>normal</code>, lines may break between <strong>any two letters</strong> (for non-CJK (Chinese/Japanese/Korean) text).</li>
+<li><code>keep-all</code>: Don&#39;t allow word breaks for CJK text.  Non-CJK text behavior is the same as for normal.</li>
+</ol>
+<p>A nice <a href="https://www.w3.org/TR/css-text-3/#word-break">example</a> given by W3C, and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/word-break">this</a> by MDN.</p>
+<pre><code>norma<span class="hljs-variable">l:</span> 什·么·鬼，·what·the·fuck.
+<span class="hljs-keyword">break</span>-<span class="hljs-keyword">al</span><span class="hljs-variable">l:</span> 什·么·鬼，·<span class="hljs-keyword">w</span>·h·<span class="hljs-keyword">a</span>·t·t·h·<span class="hljs-keyword">e</span>·<span class="hljs-keyword">f</span>·<span class="hljs-keyword">u</span>·<span class="hljs-keyword">c</span>·<span class="hljs-keyword">k</span>.
+keep-<span class="hljs-keyword">al</span><span class="hljs-variable">l:</span> 什么鬼，·what·the·fuck.
+</code></pre><p><p data-height="255" data-theme-id="light" data-slug-hash="bZrZdY" data-default-tab="html,result" data-user="daix6" data-embed-version="2" class="codepen">See the Pen <a href="https://codepen.io/daix6/pen/bZrZdY/">css text</a> by Shawn Dai (<a href="http://codepen.io/daix6">@daix6</a>) on <a href="http://codepen.io">CodePen</a>.</p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://www.w3.org/TR/css-text-3">CSS Text Module Level 3</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap">overflow-wrap - MDN</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/word-break">word-break - MDN</a></li>
+</ol>
+</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>
