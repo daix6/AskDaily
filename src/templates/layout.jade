@@ -1,3 +1,5 @@
+include ./ga.jade
+
 doctype
 html
   head
@@ -8,6 +10,8 @@ html
     base(target='_blank' href='../../')
     link(rel='stylesheet' href='css/tomorrow.css')
     link(rel='stylesheet' href='css/question.css')
+
+    +ga('UA-63581862-3')
   body.light
     header
       h1= question
