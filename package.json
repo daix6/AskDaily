@@ -1,6 +1,6 @@
 {
   "name": "ask-daily",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Ask One Technological Question Everyday.",
   "main": "gulpfile.js",
   "scripts": {

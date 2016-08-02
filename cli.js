@@ -55,7 +55,6 @@ if (_year === 'today' || _year === undefined) {
 
   createQuestion(year, month, day)
 } else if (/\d{4}/.test(_year) && /\d{1,2}/.test(_month) && /\d{1,2}/.test(_day)) {
-
   if (_month > 12 || _month < 1) {
     console.error('Invalid month.')
     process.abort()

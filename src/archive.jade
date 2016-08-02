@@ -14,10 +14,10 @@ html
       h1 Archive
     main
       dl
-        each qs, month in data
+        each item in data
           dt.range
-            h3= month
-            each q in qs
+            h3= item.questions[0].range
+            each q in item.questions
               dd
                 a.link(href='#{q.link}')= q.day
                 span #{q.question}

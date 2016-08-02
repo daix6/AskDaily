@@ -41,11 +41,11 @@ All the emojis' svg comes from [emojione](http://emojione.com/). And it also pro
 
 ### Preview
 
-Run the following commands to preview it locally.
+Run the following commands to preview the site locally.
 
 ```bash
 npm i # Please make sure that you have installed dependencies
-npm i -g gulp
+npm i -g gulp-cli
 gulp serve
 ```
 

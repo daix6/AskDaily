@@ -2,10 +2,8 @@ import gulp from 'gulp'
 import gulpLoadPlugins from 'gulp-load-plugins'
 import emoji from './lib/gulp-html-emojify'
 import merge from 'merge-stream'
-
-const $ = gulpLoadPlugins()
-
 import del from 'del'
+
 import browserify from 'browserify'
 import source from 'vinyl-source-stream'
 import buffer from 'vinyl-buffer'
@@ -16,9 +14,6 @@ import path from 'path'
 import nodeDir from 'node-dir'
 import frontMatter from 'front-matter'
 import { promisify } from 'bluebird'
-
-const ls = promisify(nodeDir.files)
-const lsContent = promisify(nodeDir.readFiles)
 
 import _ from 'lodash'
 import highlight from 'highlight.js'
@@ -46,6 +41,10 @@ const dest = {
   js: './dest/js',
   images: './dest/images'
 }
+
+const $ = gulpLoadPlugins()
+const ls = promisify(nodeDir.files)
+const lsContent = promisify(nodeDir.readFiles)
 
 vueify.compiler.applyConfig(require(src.vueConfig))
 
@@ -132,13 +131,21 @@ function archive () {
         day,
         question,
         range: moment(`${year}${month}`, 'YYYYMM').format('YYYY MMMM'),
+        month: `${year}${month}`,
         link: `./${year}/${month}/${day}.html`
       })
 
       next()
     })
       .then(files => {
-        return {data: _.groupBy(questions, 'range')}
+        let grouped = _.groupBy(questions, 'range')
+        let data = []
+
+        for (let key of Object.keys(grouped)) {
+          data.push({ questions: _.orderBy(grouped[key], 'day', 'desc'), month: grouped[key][0].month })
+        }
+
+        return { data: _.orderBy(data, 'month', 'desc') }
       })
     ))
     .pipe($.jade())
@@ -179,7 +186,7 @@ const buildIndex = gulp.parallel(calendar, index, archive)
 const buildQS = gulp.parallel(questions, styles, scripts, images)
 const build = gulp.series(clean, gulp.parallel(buildIndex, buildQS))
 
-function watch () {
+function watch (done) {
   bs.init({
     server: {
       baseDir: dest.root
@@ -195,6 +202,8 @@ function watch () {
   gulp.watch(src.index, index)
   gulp.watch(src.archive, archive)
   gulp.watch(`${dest.root}/**/*`).on('change', bs.reload)
+
+  done()
 }
 
 function clean () {
