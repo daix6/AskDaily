@@ -15,10 +15,6 @@ header {
   background-color: var(--light-dark);
 }
 
-main {
-  margin-top: 4rem;
-}
-
 .index {
   font-family: var(--serif);
 }

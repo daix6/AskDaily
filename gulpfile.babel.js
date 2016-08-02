@@ -10,6 +10,7 @@ import buffer from 'vinyl-buffer'
 import vueify from 'vueify'
 import babelify from 'babelify'
 
+import marked from 'marked'
 import path from 'path'
 import nodeDir from 'node-dir'
 import frontMatter from 'front-matter'
@@ -47,6 +48,13 @@ const ls = promisify(nodeDir.files)
 const lsContent = promisify(nodeDir.readFiles)
 
 vueify.compiler.applyConfig(require(src.vueConfig))
+
+const renderer = new marked.Renderer()
+renderer.heading = function (text, level) {
+  if (+level < 2) return
+  let escapedText = encodeURI(text.toLowerCase().replace(/\s/, '-'))
+  return `<h${level} id="${escapedText}">${text}</h${level}>`
+}
 
 function styles () {
   let highlightCSS = ['tomorrow.css', 'tomorrow-night.css']
@@ -172,7 +180,7 @@ function md2html (layout) {
   return gulp.src(`${src.qs}/**/*.md`)
     .pipe($.if(!layout, $.changed(dest.root, { extension: '.html' })))
     .pipe($.frontMatter())
-    .pipe($.markdown({ highlight: hl }))
+    .pipe($.markdown({ highlight: hl, renderer }))
     .pipe($.layout(layoutQ))
     .pipe(emoji())
     .pipe(gulp.dest(dest.root))

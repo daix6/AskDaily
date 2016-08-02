@@ -1,4 +1,5 @@
 include ./ga.jade
+include ./copyright.jade
 
 doctype
 html
@@ -30,6 +31,9 @@ html
         ul
           //- li.theme Night
           li
-            a.index(href='index.html' target='_self') Index
+            a.index(href='archive.html' target='_self') List
+          li
+            a.index(href='index.html' target='_self') Home
+    +copyright
     //- script(type='text/javascript' src='js/switch-theme.js')
     script(type='text/javascript' src='js/anchor.js' async)

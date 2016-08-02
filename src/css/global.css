@@ -29,15 +29,21 @@ header {
   overflow: hidden;
 }
 
-main {
+main, footer {
   max-width: 40rem;
-  margin: 2rem auto;
+  margin: 4rem auto;
 }
 
 @media (--m) {
-  main {
+  main, footer {
     padding: 0 2rem;
   }
+}
+
+footer {
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--light-text-s);
 }
 
 h1 {
