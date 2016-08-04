@@ -50,10 +50,15 @@ const lsContent = promisify(nodeDir.readFiles)
 vueify.compiler.applyConfig(require(src.vueConfig))
 
 const renderer = new marked.Renderer()
+
 renderer.heading = function (text, level) {
-  if (+level < 2) return
+  if (+level > 2) return `<h${level}>${text}</h${level}>`
   let escapedText = encodeURI(text.toLowerCase().replace(/\s/, '-'))
   return `<h${level} id="${escapedText}">${text}</h${level}>`
+}
+
+renderer.image = function (href, title, text) {
+  return `<a href=${href}><img src=${href} alt=${text}></a>`
 }
 
 function styles () {

@@ -11,7 +11,7 @@ h1, h2, h3 {
   font-family: var(--sans);
 }
 
-h2, h3 {
+h2 {
   cursor: pointer;
 }
 
