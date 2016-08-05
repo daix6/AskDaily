@@ -20,7 +20,8 @@ Easy
 - word-break, word-wrap, letter-spacing...
 - HTTP get, post
 - Design Patterns...(IN JS)
-
+- Redis cache
+- History API
 
 .. _paper: http://bibliography.selflanguage.org/_static/self-power.pdf
 
@@ -33,7 +34,6 @@ Hard
 - CRUD RESEful
 - HTTP in deep
 - HTTP 1/1.1, HTTP 2 (SPDY)
-- Cross Domain
 - MVC MVP MVVM
 - git
 - Hardware acceleration
