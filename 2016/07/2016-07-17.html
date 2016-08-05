@@ -1,25 +1,23 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What are multipart/form-data and application/x-www-form-urlencoded?"><title>July 17, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What are multipart/form-data and application/x-www-form-urlencoded?"><title>July 17, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="icon" type="image/x-ico" href="./images/favicon.ico"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-63581862-3', 'auto');
-ga('send', 'pageview');</script></head><body class="light"><header><h1>What are multipart/form-data and application/x-www-form-urlencoded?</h1></header><ul class="tags"><li style="background-color: #DD9BDE">HTTP</li><li style="background-color: #BCBCBB">POST</li></ul><main><p>Both of them are the optional values of <code>enctype</code> where the <code>&lt;form&gt;</code> element specifies the <em>content type</em> used to encode the form data set for submission to the server. There are three choices:</p>
+ga('send', 'pageview');</script></head><body class="light"><header><h1>What are multipart/form-data and application/x-www-form-urlencoded?</h1></header><ul class="tags"><li style="background-color: #9BD9EE">HTTP</li><li style="background-color: #DAACDE">POST</li></ul><main><p>Both of them are the optional values of <code>enctype</code> where the <code>&lt;form&gt;</code> element specifies the <em>content type</em> used to encode the form data set for submission to the server. There are three choices:</p>
 <ol>
 <li>application/x-www-form-urlencoded (default)</li>
 <li>multipart/form-data</li>
 <li>text/plain</li>
 </ol>
-<h3 id="application-x-www-form-urlencoded">application/x-www-form-urlencoded</h3>
-<ol>
+<h3>application/x-www-form-urlencoded</h3><ol>
 <li>Just like a querystring: <code>name=John+Smith&amp;age=27</code>;</li>
 <li>Each character that cannot be expressed using the selected character encoding, replacing the character by a string like <code>&amp;#xxxx;</code> where <code>xxxx</code> means the <em>Unicode code point</em> of the character in base 10. (<a href="https://en.wikipedia.org/wiki/Numeric_character_reference">NCR</a>);</li>
 <li>Replace <code>0x20</code> (space) the byte by <code>+</code>;</li>
 <li>Leave characters match <code>/[\*\-\.0-9A-Z_a-z]/</code> (<strong>alphanumeric</strong>) as is;</li>
 <li>Otherwise, replace the byte (<strong>non-alphanumeric</strong>) by <code>%HH</code> (must be two) where <code>HH</code> means the <em>uppsercase ASCII hex digits</em> representing the byte.</li>
 </ol>
-<h3 id="multipart-form-data">multipart/form-data</h3>
-<p>Talk is cheap, show you the code:</p>
+<h3>multipart/form-data</h3><p>Talk is cheap, show you the code:</p>
 <pre><code class="lang-html">&lt;<span class="hljs-selector-tag">form</span> enctype=<span class="hljs-string">'multipart/form-data'</span> method=<span class="hljs-string">'POST'</span> action=<span class="hljs-string">'test'</span>&gt;
   &lt;<span class="hljs-selector-tag">input</span> type=<span class="hljs-string">'file'</span> name=<span class="hljs-string">'file'</span> value=<span class="hljs-string">'千本桜.txt'</span>/&gt;
   &lt;<span class="hljs-selector-tag">input</span> type=<span class="hljs-string">'text'</span> name=<span class="hljs-string">'text'</span> value=<span class="hljs-string">'John Smith'</span> /&gt;
@@ -27,25 +25,22 @@ ga('send', 'pageview');</script></head><body class="light"><header><h1>What are 
 &lt;/form&gt;
 </code></pre>
 <p>The corresponding HTTP request would like this:</p>
-<p><img src="images/multipart-form-data.png" alt="multipart/form-data"></p>
+<p><a href=images/multipart-form-data.png><img src=images/multipart-form-data.png alt=multipart/form-data></a></p>
 <p>The <code>boundary</code> in the <code>Content-Type</code> works just like the <code>&amp;</code> in querystring, but its value shall never appear in the entries (key and value).</p>
 <p>The <code>name</code> in the <code>Content-Disposition</code> is the same as the entry&#39;s name.</p>
-<h3 id="text-plain">text/plain</h3>
-<p>Do not use.</p>
+<h3>text/plain</h3><p>Do not use.</p>
 <blockquote>
 <p>Payloads using the text/plain format are intended to be human readable. They are not reliably interpretable by computer, as the format is ambiguous (for example, there is no way to distinguish a literal newline in a value from the newline at the end of the value).</p>
 </blockquote>
-<h2 id="application">Application</h2>
-<blockquote>
+<h2 id="application">Application</h2><blockquote>
 <p>If you have binary (non-alphanumeric) data (or a significantly sized payload) to transmit, use <code>multipart/form-data</code>. Otherwise, use <code>application/x-www-form-urlencoded</code>.</p>
 </blockquote>
 <p>BTW, if you are using <code>ajax</code>, there are more choices for you. Like <strong>application/json</strong>, <strong>application/xml</strong>...</p>
-<h2 id="references">References</h2>
-<ol>
+<h2 id="references">References</h2><ol>
 <li><a href="https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data">application/x-www-form-urlencoded or multipart/form-data?</a></li>
 <li><a href="https://www.w3.org/TR/html5/forms.html#url-encoded-form-data">Forms - W3C</a></li>
 <li><a href="https://www.zhihu.com/question/21390312/answer/18091465">&amp;#x开头的是什么编码呢</a></li>
 <li><a href="https://dev.w3.org/html5/html-author/charref">Character Entity Reference Chart</a></li>
 <li><a href="https://www.ietf.org/rfc/rfc2388.txt">Returning Values from Forms: multipart/form-data</a></li>
 </ol>
-</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>
+</main><aside><nav><ul><li><a href="archive.html" target="_self" class="index">List</a></li><li><a href="index.html" target="_self" class="index">Home</a></li></ul></nav></aside><footer><p>Copyright &copy;&nbsp;<a href="https://github.com/daix6">Shawn Dai</a></p></footer><script type="text/javascript" src="js/anchor.js" async></script></body></html>

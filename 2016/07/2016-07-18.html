@@ -1,12 +1,10 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What's the difference between let, const and var?"><title>July 18, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What's the difference between let, const and var?"><title>July 18, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="icon" type="image/x-ico" href="./images/favicon.ico"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-63581862-3', 'auto');
-ga('send', 'pageview');</script></head><body class="light"><header><h1>What's the difference between let, const and var?</h1></header><ul class="tags"><li style="background-color: #9ABC99">JavaScript</li><li style="background-color: #D9A9A9">ES6</li><li style="background-color: #EDCB99">TDZ</li></ul><main><h2 id="var">var</h2>
-<h3 id="scope">Scope</h3>
-<p>As we all know, there isn&#39;t <strong>block-level scope</strong> but <strong>function-level scope</strong> in JavaScript.</p>
+ga('send', 'pageview');</script></head><body class="light"><header><h1>What's the difference between let, const and var?</h1></header><ul class="tags"><li style="background-color: #9B9B9C">JavaScript</li><li style="background-color: #CEDCC9">ES6</li><li style="background-color: #9DC9ED">TDZ</li></ul><main><h2 id="var">var</h2><h3>Scope</h3><p>As we all know, there isn&#39;t <strong>block-level scope</strong> but <strong>function-level scope</strong> in JavaScript.</p>
 <p>For example:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> scope = <span class="hljs-string">'outer scope'</span>
 {
@@ -22,8 +20,7 @@ ga('send', 'pageview');</script></head><body class="light"><header><h1>What's th
 foo()
 <span class="hljs-built_in">console</span>.log(scope) <span class="hljs-comment">// inner scope</span>
 </code></pre>
-<h3 id="hoisting">Hoisting</h3>
-<p>Moreover, declaring a variable at anywhere is equivalent to delcaring it at the top (of the function or global) in JavaScript, which is called <strong>hoisting</strong>.</p>
+<h3>Hoisting</h3><p>Moreover, declaring a variable at anywhere is equivalent to delcaring it at the top (of the function or global) in JavaScript, which is called <strong>hoisting</strong>.</p>
 <p>For example:</p>
 <pre><code class="lang-javascript">console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">a</span>)<span class="hljs-comment"> // undefined</span>
 var <span class="hljs-keyword">a</span> = <span class="hljs-number">1</span>
@@ -33,9 +30,7 @@ var <span class="hljs-keyword">a</span> = <span class="hljs-number">1</span>
   console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">a</span>)<span class="hljs-comment"> // 2</span>
 })()
 </code></pre>
-<h2 id="let-and-const">let and const</h2>
-<h3 id="scope">scope</h3>
-<p>ECMAScript 2015 (aka ES6) introduced two ways to declare block-level scope local variables: <code>let</code> and <code>const</code>. <code>let</code>&#39;s function is likes <code>var</code>, and <code>const</code> declares <strong>read-only value</strong>.</p>
+<h2 id="let-and%20const">let and const</h2><h3>scope</h3><p>ECMAScript 2015 (aka ES6) introduced two ways to declare block-level scope local variables: <code>let</code> and <code>const</code>. <code>let</code>&#39;s function is likes <code>var</code>, and <code>const</code> declares <strong>read-only value</strong>.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">let</span> scope = <span class="hljs-string">'outer scope'</span>
 {
   <span class="hljs-keyword">let</span> scope = <span class="hljs-string">'inner scope'</span>
@@ -43,8 +38,7 @@ var <span class="hljs-keyword">a</span> = <span class="hljs-number">1</span>
 }
 <span class="hljs-built_in">console</span>.log(scope) <span class="hljs-comment">// outer scope</span>
 </code></pre>
-<h3 id="hoisting">Hoisting</h3>
-<p>Variables declared by <code>let</code> and <code>const</code> <strong>will also be hoisted to the top of the blocks</strong>. But unlike <code>var</code>, referencing the variables declared by <code>let</code> and <code>const</code> before their declarations will result in a <code>ReferenceError</code> because of the <strong>TDZ</strong> (Temporal Dead Zone, the region of a program, where a variable or a parameter <strong>cannot be accessed until it’s initialized</strong>).</p>
+<h3>Hoisting</h3><p>Variables declared by <code>let</code> and <code>const</code> <strong>will also be hoisted to the top of the blocks</strong>. But unlike <code>var</code>, referencing the variables declared by <code>let</code> and <code>const</code> before their declarations will result in a <code>ReferenceError</code> because of the <strong>TDZ</strong> (Temporal Dead Zone, the region of a program, where a variable or a parameter <strong>cannot be accessed until it’s initialized</strong>).</p>
 <p>The <a href="https://tc39.github.io/ecma262/#sec-let-and-const-declarations">specification</a> says:</p>
 <blockquote>
 <p>let and const declarations define variables that are scoped to the running execution context&#39;s <strong>LexicalEnvironment</strong>. The variables are created when their containing Lexical Environment is instantiated <strong>but may not be accessed in any way until the variable&#39;s LexicalBinding is evaluated</strong>. A variable defined by a LexicalBinding with an Initializer is assigned the value of its Initializer&#39;s AssignmentExpression <strong>when the LexicalBinding is evaluated, not when the variable is created</strong>. If a LexicalBinding in a let declaration does not have an Initializer the variable is assigned the value undefined when the LexicalBinding is evaluated.</p>
@@ -81,12 +75,11 @@ function tdz2 (<span class="hljs-selector-tag">p</span> = <span class="hljs-sele
 <span class="hljs-comment">// but q cannot be referenced until it's initialized</span>
 </code></pre>
 <p>BTW, TDZ is not implemented in most transpilers (like babel, traceur), <a href="https://github.com/google/traceur-compiler/issues/1382">an issue</a>. <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><circle cx="32" cy="32" r="30" fill="#ffdd67"/><path d="m40.3 48.1c0 4.6-3.7 8.3-8.3 8.3-4.6 0-8.3-3.7-8.3-8.3 0-4.6 3.7-8.3 8.3-8.3 4.6 0 8.3 3.7 8.3 8.3" fill="#664e27"/><path d="m26.2 44.8c1.2-2 3.3-3.4 5.8-3.4 2.5 0 4.7 1.3 5.8 3.4h-11.6" fill="#fff"/><g fill="#664e27"><circle cx="43.5" cy="33" r="4.5"/><circle cx="20.5" cy="33" r="4.5"/></g><g fill="#917524"><path d="m25.6 17.9c-3.2 2.7-7.5 3.9-11.7 3.1-.6-.1-1.1 2-.4 2.2 4.8.9 9.8-.5 13.5-3.6.5-.5-1-2.1-1.4-1.7"/><path d="m50.1 20.9c-4.2.7-8.5-.4-11.7-3.1-.4-.4-2 1.2-1.4 1.7 3.7 3.2 8.7 4.5 13.5 3.6.7-.2.2-2.3-.4-2.2"/></g><path d="m62 18.5c0 9.4-12.7 9.4-12.7 0 0-6.9 6.4-13.5 6.4-13.5s6.3 6.7 6.3 13.5" fill="#65b1ef"/></svg></p>
-<h2 id="references">References</h2>
-<ol>
+<h2 id="references">References</h2><ol>
 <li><a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html">JavaScript Scoping and Hoisting</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting">var hoisting - MDN</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#Temporal_dead_zone_and_errors_with_let">let - MDN</a></li>
 <li><a href="http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified/">Temporal dead zone (TDZ) demystified</a></li>
 <li><a href="http://dmitrysoshnikov.com/ecmascript/es6-notes-default-values-of-parameters/#tdz-temporal-dead-zone-for-parameters">ES6 Notes - Default value of parameters</a></li>
 </ol>
-</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>
+</main><aside><nav><ul><li><a href="archive.html" target="_self" class="index">List</a></li><li><a href="index.html" target="_self" class="index">Home</a></li></ul></nav></aside><footer><p>Copyright &copy;&nbsp;<a href="https://github.com/daix6">Shawn Dai</a></p></footer><script type="text/javascript" src="js/anchor.js" async></script></body></html>

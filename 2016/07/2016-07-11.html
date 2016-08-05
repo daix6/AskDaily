@@ -1,11 +1,10 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="How does the browser downloads resources from a web page?"><title>July 11, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="How does the browser downloads resources from a web page?"><title>July 11, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="icon" type="image/x-ico" href="./images/favicon.ico"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-63581862-3', 'auto');
-ga('send', 'pageview');</script></head><body class="light"><header><h1>How does the browser downloads resources from a web page?</h1></header><ul class="tags"><li style="background-color: #C9CAAA">Web</li><li style="background-color: #ACDDBC">Browser</li></ul><main><h2 id="example">Example</h2>
-<p>With a html like this:</p>
+ga('send', 'pageview');</script></head><body class="light"><header><h1>How does the browser downloads resources from a web page?</h1></header><ul class="tags"><li style="background-color: #CACCCC">Web</li><li style="background-color: #D9EA9A">Browser</li></ul><main><h2 id="example">Example</h2><p>With a html like this:</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
@@ -44,8 +43,7 @@ ga('send', 'pageview');</script></head><body class="light"><header><h1>How does 
 <li>The browser will trigger <code>DOMContentedLoaded</code> event once the DOM tree&#39;s construction completed.</li>
 <li>The browser will trigger <code>load</code> event once all resources(<em>images, stylesheets, scripts</em>) have been downloaded and processed.</li>
 </ol>
-<h3 id="why">Why</h3>
-<ol>
+<h3>Why</h3><ol>
 <li><strong>style1.css</strong> and <strong>script2.js</strong> won&#39;t influence the DOM and the render process.<ul>
 <li><code>media=&#39;print&#39;</code> means it will be used only when <strong>print</strong> it.</li>
 <li><code>async</code> implies it does not process the DOM at all</li>
@@ -56,9 +54,8 @@ ga('send', 'pageview');</script></head><body class="light"><header><h1>How does 
 <li>The browser will trigger <a href="https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded"><code>DOMContentedLoaded</code></a> event once the DOM tree&#39;s construction completed.</li>
 <li>The browser will trigger <a href="https://developer.mozilla.org/en-US/docs/Web/Events/load"><code>load</code></a> event once all resources (<em>images, stylesheets, scripts, ...</em>) have been downloaded and processed.</li>
 </ol>
-<h2 id="references">References</h2>
-<ol>
+<h2 id="references">References</h2><ol>
 <li><a href="https://github.com/google/WebFundamentals/tree/master/src/content/en/fundamentals/performance/critical-rendering-path">Critical Rendering Path</a></li>
 <li><a href="http://stackoverflow.com/questions/2414750/difference-between-domcontentloaded-and-load-events">Difference between DOMContentLoaded and Load events</a></li>
 </ol>
-</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>
+</main><aside><nav><ul><li><a href="archive.html" target="_self" class="index">List</a></li><li><a href="index.html" target="_self" class="index">Home</a></li></ul></nav></aside><footer><p>Copyright &copy;&nbsp;<a href="https://github.com/daix6">Shawn Dai</a></p></footer><script type="text/javascript" src="js/anchor.js" async></script></body></html>

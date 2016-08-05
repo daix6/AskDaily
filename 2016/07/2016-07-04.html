@@ -1,10 +1,10 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What's the date time string format in JavaScript?"><title>July 4, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="What's the date time string format in JavaScript?"><title>July 4, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="icon" type="image/x-ico" href="./images/favicon.ico"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-63581862-3', 'auto');
-ga('send', 'pageview');</script></head><body class="light"><header><h1>What's the date time string format in JavaScript?</h1></header><ul class="tags"><li style="background-color: #EBEBCD">ECMAScript</li><li style="background-color: #BBDDDD">Date Format</li><li style="background-color: #B9B9ED">ISO 8601</li></ul><main><p>Date time string can be used as the argument of <code>Date.parse</code> method or the <code>Date</code> constructor in JavaScript.</p>
+ga('send', 'pageview');</script></head><body class="light"><header><h1>What's the date time string format in JavaScript?</h1></header><ul class="tags"><li style="background-color: #BC9DED">ECMAScript</li><li style="background-color: #BDEDBD">Date Format</li><li style="background-color: #DEEABA">ISO 8601</li></ul><main><p>Date time string can be used as the argument of <code>Date.parse</code> method or the <code>Date</code> constructor in JavaScript.</p>
 <p>According to the specification of <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-date-time-string-format">Date Time String Format</a>:</p>
 <blockquote>
 <p>ECMAScript defines a string interchange format for date-times based upon a simplification of the ISO 8601 Extended Format. The format is as follows: <strong>YYYY-MM-DDTHH:mm:ss.sssZ</strong>.</p>
@@ -51,17 +51,12 @@ ga('send', 'pageview');</script></head><body class="light"><header><h1>What's th
 </table>
 <p><strong>Note:</strong> If the time is in UTC, just use &quot;Z&quot; directly for <strong>Z</strong>. &quot;Z&quot; is the zone designator for the zero UTC offset. Offset from UTC are write in the format &quot;±HH:mm&quot;. For example, China&#39;s <strong>Z</strong> should be <em>+08:00</em>.</p>
 <p>There is a <a href="https://upload.wikimedia.org/wikipedia/commons/e/e8/Standard_World_Time_Zones.png">picture</a> contains all UTC time zone offsets. 本当に面白い！</p>
-<h2 id="gmt">GMT</h2>
-<p><a href="https://en.wikipedia.org/wiki/Greenwich_Mean_Time">GMT</a> means the <em>Greenwich Mean Time</em>, formerly used as the international civil time standard, which is superseded in that function by <em>Coordinated Universal Time</em>, because of earth&#39;s uneven speed in its elliptical orbit and its axial tilt.</p>
-<h2 id="ut">UT</h2>
-<p>UT, <em>Universal Time</em>, is a time standard based on Earth&#39;s rotation. It&#39;s a modern continuation of GMT. There are several versions of it, like UTC, UT1... All UT except for UTC are based on Earth&#39;s rotation relative to distant celestial objects, but with a scaling factor and other adjustments to make them closer to solar time. UTC is based on <a href="https://en.wikipedia.org/wiki/International_Atomic_Time">International Atomic Time</a>, with leap seconds added to keep it within 0.9 second of UT1.</p>
-<h3 id="utc">UTC</h3>
-<p><a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC</a>, <em>Coordinated Universal Time</em>, is the primary time standard by which the world regulates clock and time. It is closely related to GMT. For most purposes, UTC is considered interchangeable with GMT, but GMT is no longer precisely defined by the scientific community.</p>
-<h2 id="iso-8601">ISO 8601</h2>
-<p><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> is an international standard covering <em>the exchange</em> of date and time-related data, issued by ISO. The purpose of this is to provide an unambiguous and well-defined method of representing dates and times.</p>
+<h2 id="gmt">GMT</h2><p><a href="https://en.wikipedia.org/wiki/Greenwich_Mean_Time">GMT</a> means the <em>Greenwich Mean Time</em>, formerly used as the international civil time standard, which is superseded in that function by <em>Coordinated Universal Time</em>, because of earth&#39;s uneven speed in its elliptical orbit and its axial tilt.</p>
+<h2 id="ut">UT</h2><p>UT, <em>Universal Time</em>, is a time standard based on Earth&#39;s rotation. It&#39;s a modern continuation of GMT. There are several versions of it, like UTC, UT1... All UT except for UTC are based on Earth&#39;s rotation relative to distant celestial objects, but with a scaling factor and other adjustments to make them closer to solar time. UTC is based on <a href="https://en.wikipedia.org/wiki/International_Atomic_Time">International Atomic Time</a>, with leap seconds added to keep it within 0.9 second of UT1.</p>
+<h3>UTC</h3><p><a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC</a>, <em>Coordinated Universal Time</em>, is the primary time standard by which the world regulates clock and time. It is closely related to GMT. For most purposes, UTC is considered interchangeable with GMT, but GMT is no longer precisely defined by the scientific community.</p>
+<h2 id="iso-8601">ISO 8601</h2><p><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> is an international standard covering <em>the exchange</em> of date and time-related data, issued by ISO. The purpose of this is to provide an unambiguous and well-defined method of representing dates and times.</p>
 <p>(It shocked me that the standard should charge...=&gt;<a href="http://www.iso.org/iso/home/standards/iso8601.htm">link</a>)</p>
-<h2 id="date-string-in-action">Date String in Action</h2>
-<p>There are the results of all <code>Date</code>&#39;s <em>toString</em> methods in <strong>JavaScript</strong>: (I&#39;m in China now.)</p>
+<h2 id="date-string%20in%20action">Date String in Action</h2><p>There are the results of all <code>Date</code>&#39;s <em>toString</em> methods in <strong>JavaScript</strong>: (I&#39;m in China now.)</p>
 <table>
 <thead>
 <tr>
@@ -113,10 +108,9 @@ ga('send', 'pageview');</script></head><body class="light"><header><h1>What's th
 </tbody>
 </table>
 <p>Now I know that GMT and UTC are time standards while ISO 8601 provides the representation form of time.</p>
-<h2 id="a-library">A Library</h2>
-<p><a href="http://momentjs.com/">Moment.js</a>, a library that parses, validates, manipulates, and displays dates in JavaScript. This website is using this library now.</p>
+<h2 id="a-library">A Library</h2><p><a href="http://momentjs.com/">Moment.js</a>, a library that parses, validates, manipulates, and displays dates in JavaScript. This website is using this library now.</p>
 <p>Example:</p>
 <pre><code class="lang-javascript">moment(<span class="hljs-string">'20160704'</span>, <span class="hljs-string">'YYYYMMDD'</span>).<span class="hljs-keyword">format</span>(<span class="hljs-string">'MMMM D, YYYY'</span>);
 <span class="hljs-comment">// July 4, 2016, exactly the title of this website.</span>
 </code></pre>
-</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>
+</main><aside><nav><ul><li><a href="archive.html" target="_self" class="index">List</a></li><li><a href="index.html" target="_self" class="index">Home</a></li></ul></nav></aside><footer><p>Copyright &copy;&nbsp;<a href="https://github.com/daix6">Shawn Dai</a></p></footer><script type="text/javascript" src="js/anchor.js" async></script></body></html>

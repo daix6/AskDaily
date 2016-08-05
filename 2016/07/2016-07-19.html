@@ -1,14 +1,13 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="How to get nth fibonacci number in JavaScript?"><title>July 19, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="How to get nth fibonacci number in JavaScript?"><title>July 19, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="icon" type="image/x-ico" href="./images/favicon.ico"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-63581862-3', 'auto');
-ga('send', 'pageview');</script></head><body class="light"><header><h1>How to get nth fibonacci number in JavaScript?</h1></header><ul class="tags"><li style="background-color: #9CDC9D">Algorithms</li><li style="background-color: #ACBCBC">Memoization</li></ul><main><p>In mathematics, the Fibonacci numbers are the numbers in the following integer sequence, called the Fibonacci sequence:</p>
+ga('send', 'pageview');</script></head><body class="light"><header><h1>How to get nth fibonacci number in JavaScript?</h1></header><ul class="tags"><li style="background-color: #ACEDAA">Algorithms</li><li style="background-color: #AADB99">Memoization</li></ul><main><p>In mathematics, the Fibonacci numbers are the numbers in the following integer sequence, called the Fibonacci sequence:</p>
 <p>0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...</p>
 <p>By definition, the first two numbers in the Fibonacci sequence are either 1 and 1, or 0 and 1, depending on the chosen starting point of the sequence, and each subsequent number is the sum of the previous two.</p>
-<h2 id="a-simple-version">A simple version</h2>
-<pre><code class="lang-javascript"><span class="hljs-function">function <span class="hljs-title">fibonacci</span><span class="hljs-params">(n)</span> </span>{
+<h2 id="a-simple%20version">A simple version</h2><pre><code class="lang-javascript"><span class="hljs-function">function <span class="hljs-title">fibonacci</span><span class="hljs-params">(n)</span> </span>{
   <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> Error(<span class="hljs-string">'Wrong arguments! Natural numbers only!'</span>)
   <span class="hljs-keyword">return</span> n &lt; <span class="hljs-number">2</span> ? n : fibonacci(n - 1) + fibonacci(n - 2)
 }
@@ -17,8 +16,7 @@ fibonacci(50)
 </code></pre>
 <p>The simplest version takes many unnecessary caculations during the process. There are many redundancy in the <code>fibonacci(n-1)</code> and <code>fibonacci(n-2)</code>.</p>
 <p>This kind of recursion is called <strong>tree recursion</strong>. How about doing the recursion linearly?</p>
-<h2 id="linear-recursion">Linear Recursion</h2>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(n)</span></span> {
+<h2 id="linear-recursion">Linear Recursion</h2><pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(n)</span></span> {
   <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">0</span>) throw Error(<span class="hljs-string">'Wrong arguments! Natural numbers only!'</span>)
   <span class="hljs-keyword">else</span> {
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">iter</span><span class="hljs-params">(cur, next, count)</span></span> {
@@ -32,8 +30,7 @@ fibonacci(50)
 </code></pre>
 <p>By this way, the recursion becames linear with <strong>O(n)</strong> time complexity. It&#39;s much faster than the tree recursion version. The reason behind it is that it always cache the latest two result which the <em>tree recursion</em> does not.</p>
 <p>How about we create a Map that cache the result of n once we caculate it?</p>
-<h2 id="memoization">Memoization</h2>
-<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> fibonacci = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<h2 id="memoization">Memoization</h2><pre><code class="lang-javascript"><span class="hljs-keyword">let</span> fibonacci = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">let</span> memo = {}
 
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">n</span>) </span>{
@@ -53,8 +50,7 @@ fibonacci(50)
 </code></pre>
 <p>In this implementation, it caches every caculated fibonacci(n) in <code>memo</code>, which provides better performance than the simplest version. But it takes more spaces than the linear recursion because of the <code>memo</code>.</p>
 <p>All of the above implementation will throw <code>RangeError: Maximum call stack size exceeded</code> when n is quite big. So why don&#39;t we try to make use of iteration?</p>
-<h2 id="iteration">Iteration</h2>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fibonacci</span> (<span class="hljs-params">n</span>) </span>{
+<h2 id="iteration">Iteration</h2><pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fibonacci</span> (<span class="hljs-params">n</span>) </span>{
   <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Wrong arguments! Natural numbers only!'</span>)
   <span class="hljs-keyword">let</span> cur = <span class="hljs-number">0</span>, next = <span class="hljs-number">1</span>
 
@@ -65,12 +61,10 @@ fibonacci(50)
 }
 </code></pre>
 <p>By this way, there won&#39;t be <code>RangeError</code> any more!</p>
-<h2 id="benchmark">Benchmark</h2>
-<p>There is my different implementations: <a href="https://github.com/daix6/AskDaily/tree/master/examples/fibonacci.js">fibonacci.js</a>.</p>
+<h2 id="benchmark">Benchmark</h2><p>There is my different implementations: <a href="https://github.com/daix6/AskDaily/tree/master/examples/fibonacci.js">fibonacci.js</a>.</p>
 <p>The picture below shows the performance of different implementations.
-<img src="images/fibonacci.png" alt="Benchmark"></p>
-<h2 id="have-fun">Have Fun</h2>
-<p>ES6 introduced generators. Try fibonacci with generator: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><circle cx="32" cy="32" r="30" fill="#ffdd67"/><g fill="#664e27"><path d="m51.7 19.4c.6.3.3 1-.2 1.1-2.7.4-5.5.9-8.3 2.4 4 .7 7.2 2.7 9 4.8.4.5-.1 1.1-.5 1-4.8-1.7-9.7-2.7-15.8-2-.5 0-.9-.2-.8-.7 1.6-7.3 10.9-10 16.6-6.6"/><path d="m12.3 19.4c-.6.3-.3 1 .2 1.1 2.7.4 5.5.9 8.3 2.4-4 .7-7.2 2.7-9 4.8-.4.5.1 1.1.5 1 4.8-1.7 9.7-2.7 15.8-2 .5 0 .9-.2.8-.7-1.6-7.3-10.9-10-16.6-6.6"/><path d="m49.7 34.4c-.4-.5-1.1-.4-1.9-.4-15.8 0-15.8 0-31.6 0-.8 0-1.5-.1-1.9.4-3.9 5 .7 19.6 17.7 19.6 17 0 21.6-14.6 17.7-19.6"/></g><path d="m33.8 41.7c-.6 0-1.5.5-1.1 2 .2.7 1.2 1.6 1.2 2.8 0 2.4-3.8 2.4-3.8 0 0-1.2 1-2 1.2-2.8.3-1.4-.6-2-1.1-2-1.6 0-4.1 1.7-4.1 4.6 0 3.2 2.7 5.8 6 5.8s6-2.6 6-5.8c-.1-2.8-2.7-4.5-4.3-4.6" fill="#4c3526"/><path d="m24.3 50.7c2.2 1 4.8 1.5 7.7 1.5s5.5-.6 7.7-1.5c-2.1-1.1-4.7-1.7-7.7-1.7s-5.6.6-7.7 1.7" fill="#ff717f"/><path d="m47 36c-15 0-15 0-29.9 0-2.1 0-2.1 4-.1 4 10.4 0 19.6 0 30 0 2 0 2-4 0-4" fill="#fff"/></svg></p>
+<a href=images/fibonacci.png><img src=images/fibonacci.png alt=Benchmark></a></p>
+<h2 id="have-fun">Have Fun</h2><p>ES6 introduced generators. Try fibonacci with generator: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><circle cx="32" cy="32" r="30" fill="#ffdd67"/><g fill="#664e27"><path d="m51.7 19.4c.6.3.3 1-.2 1.1-2.7.4-5.5.9-8.3 2.4 4 .7 7.2 2.7 9 4.8.4.5-.1 1.1-.5 1-4.8-1.7-9.7-2.7-15.8-2-.5 0-.9-.2-.8-.7 1.6-7.3 10.9-10 16.6-6.6"/><path d="m12.3 19.4c-.6.3-.3 1 .2 1.1 2.7.4 5.5.9 8.3 2.4-4 .7-7.2 2.7-9 4.8-.4.5.1 1.1.5 1 4.8-1.7 9.7-2.7 15.8-2 .5 0 .9-.2.8-.7-1.6-7.3-10.9-10-16.6-6.6"/><path d="m49.7 34.4c-.4-.5-1.1-.4-1.9-.4-15.8 0-15.8 0-31.6 0-.8 0-1.5-.1-1.9.4-3.9 5 .7 19.6 17.7 19.6 17 0 21.6-14.6 17.7-19.6"/></g><path d="m33.8 41.7c-.6 0-1.5.5-1.1 2 .2.7 1.2 1.6 1.2 2.8 0 2.4-3.8 2.4-3.8 0 0-1.2 1-2 1.2-2.8.3-1.4-.6-2-1.1-2-1.6 0-4.1 1.7-4.1 4.6 0 3.2 2.7 5.8 6 5.8s6-2.6 6-5.8c-.1-2.8-2.7-4.5-4.3-4.6" fill="#4c3526"/><path d="m24.3 50.7c2.2 1 4.8 1.5 7.7 1.5s5.5-.6 7.7-1.5c-2.1-1.1-4.7-1.7-7.7-1.7s-5.6.6-7.7 1.7" fill="#ff717f"/><path d="m47 36c-15 0-15 0-29.9 0-2.1 0-2.1 4-.1 4 10.4 0 19.6 0 30 0 2 0 2-4 0-4" fill="#fff"/></svg></p>
 <pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">fibonacci</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">let</span> a = <span class="hljs-number">0</span>
   <span class="hljs-keyword">let</span> b = <span class="hljs-number">1</span>
@@ -85,12 +79,10 @@ fibonacci(50)
 <span class="hljs-keyword">let</span> gen = fibonacci() <span class="hljs-comment">// Infinite fibonacci number generator!</span>
 gen.next().value <span class="hljs-comment">// Use this to get next fibonacci number</span>
 </code></pre>
-<h2 id="formula-lookup-array-">Formula, Lookup Array...</h2>
-<p>You can read the 3rd reference for more! <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><path d="M62,32c0,16.6-13.4,30-30,30C15.4,62,2,48.6,2,32C2,15.4,15.4,2,32,2C48.6,2,62,15.4,62,32z" fill="#ffdd67"/><path d="m42 47.9c-5-5-2.8-2.8 2.5-8.1 5.3-5.3 3.1-7.6 8.1-2.5 5 5 5.2 9.9 2.2 12.9-2.9 2.9-7.8 2.7-12.8-2.3" fill="#ff717f"/><path fill="#e2596c" d="m45.6 38.7l6.8 9-8.9-6.8z"/><g fill="#664e27"><path d="m28.5 24.9c-1.9-5.1-4.7-7.7-7.5-7.7s-5.6 2.6-7.5 7.7c-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7s4.4.8 6.2 2.7c.6.5 1.5-.4 1.3-.9"/><path d="m50.4 24.9c-1.9-5.1-4.7-7.7-7.5-7.7s-5.6 2.6-7.5 7.7c-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7s4.4.8 6.2 2.7c.5.5 1.5-.4 1.3-.9"/><path d="m48.1 33c-4.3 6.1-9.5 7.6-16.1 7.6s-11.8-1.5-16.1-7.6c-.6-.8-2.2-.3-1.8.9 2.3 8 10 12.7 18 12.7s15.7-4.7 18-12.7c.2-1.2-1.4-1.7-2-.9"/></g></svg></p>
-<h2 id="references">References</h2>
-<ol>
+<h2 id="formula,-lookup%20array...">Formula, Lookup Array...</h2><p>You can read the 3rd reference for more! <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><path d="M62,32c0,16.6-13.4,30-30,30C15.4,62,2,48.6,2,32C2,15.4,15.4,2,32,2C48.6,2,62,15.4,62,32z" fill="#ffdd67"/><path d="m42 47.9c-5-5-2.8-2.8 2.5-8.1 5.3-5.3 3.1-7.6 8.1-2.5 5 5 5.2 9.9 2.2 12.9-2.9 2.9-7.8 2.7-12.8-2.3" fill="#ff717f"/><path fill="#e2596c" d="m45.6 38.7l6.8 9-8.9-6.8z"/><g fill="#664e27"><path d="m28.5 24.9c-1.9-5.1-4.7-7.7-7.5-7.7s-5.6 2.6-7.5 7.7c-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7s4.4.8 6.2 2.7c.6.5 1.5-.4 1.3-.9"/><path d="m50.4 24.9c-1.9-5.1-4.7-7.7-7.5-7.7s-5.6 2.6-7.5 7.7c-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7s4.4.8 6.2 2.7c.5.5 1.5-.4 1.3-.9"/><path d="m48.1 33c-4.3 6.1-9.5 7.6-16.1 7.6s-11.8-1.5-16.1-7.6c-.6-.8-2.2-.3-1.8.9 2.3 8 10 12.7 18 12.7s15.7-4.7 18-12.7c.2-1.2-1.4-1.7-2-.9"/></g></svg></p>
+<h2 id="references">References</h2><ol>
 <li><a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number - Wikipedia</a></li>
 <li><a href="http://taobaofed.org/blog/2016/07/14/performance-optimization-memoization/">性能优化：memoization</a></li>
 <li><a href="https://medium.com/javascript-scene/7-surprising-things-i-learned-writing-a-fibonacci-generator-4886a5c87710#.ryupgw428">7 Surprising Things I Learned Writing a Fibonacci Generator in JavaScript</a></li>
 </ol>
-</main><aside><nav><ul><li><a href="index.html" target="_self" class="index">Index</a></li></ul></nav></aside><script type="text/javascript" src="js/anchor.js" async></script></body></html>
+</main><aside><nav><ul><li><a href="archive.html" target="_self" class="index">List</a></li><li><a href="index.html" target="_self" class="index">Home</a></li></ul></nav></aside><footer><p>Copyright &copy;&nbsp;<a href="https://github.com/daix6">Shawn Dai</a></p></footer><script type="text/javascript" src="js/anchor.js" async></script></body></html>

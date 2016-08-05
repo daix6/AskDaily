@@ -1,0 +1,283 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="何为跨域？如何跨域？"><title>August 1, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="icon" type="image/x-ico" href="./images/favicon.ico"><link rel="stylesheet" href="css/tomorrow.css"><link rel="stylesheet" href="css/question.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-63581862-3', 'auto');
+ga('send', 'pageview');</script></head><body class="light"><header><h1>何为跨域？如何跨域？</h1></header><ul class="tags"><li style="background-color: #CABBA9">AJAX</li><li style="background-color: #9BBDDA">Cross Domain</li><li style="background-color: #B9B9BE">CORS</li><li style="background-color: #CBBAEC">JSONP</li></ul><main><p>（任性决定以后英文一个月中文一个月交替！<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M62,32c0,16.6-13.4,30-30,30C15.4,62,2,48.6,2,32C2,15.4,15.4,2,32,2C48.6,2,62,15.4,62,32z" fill="#ffdd67" id="0"/><path d="m49 38c0-.8-.5-1.8-1.8-2.1-3.5-.7-8.6-1.3-15.2-1.3-6.6 0-11.7.7-15.2 1.3-1.3.3-1.8 1.3-1.8 2.1 0 7.3 5.6 14.6 17 14.6 11.4 0 17-7.3 17-14.6" fill="#664e27" id="1"/><path d="m28.5 26.9c-1.9-5.1-4.7-7.7-7.5-7.7s-5.6 2.6-7.5 7.7c-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7 2.2 0 4.4.8 6.2 2.7.6.5 1.5-.4 1.3-.9" fill="#664e27" id="2"/><path d="m50.4 26.9c-1.9-5.1-4.7-7.7-7.5-7.7-2.8 0-5.6 2.6-7.5 7.7-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7 2.3 0 4.4.8 6.2 2.7.5.5 1.5-.4 1.3-.9" fill="#664e27" id="3"/><path d="m44.7 38.3c-2.2-.4-6.8-1-12.7-1-5.9 0-10.5.6-12.7 1-1.3.2-1.4.7-1.3 1.5.1.4.1 1 .3 1.6.1.6.3.9 1.3.8 1.9-.2 23-.2 24.9 0 1 .1 1.1-.2 1.3-.8.1-.6.2-1.1.3-1.6 0-.8-.1-1.3-1.4-1.5" fill="#fff"/><use xlink:href="#0"/><use xlink:href="#1"/><use xlink:href="#2"/><use xlink:href="#3"/><path d="m44.7 38.3c-2.2-.4-6.8-1-12.7-1-5.9 0-10.5.6-12.7 1-1.3.2-1.4.7-1.3 1.5.1.4.1 1 .3 1.6.1.6.3.8 1.3.8 12.4 0 12.4 0 24.9 0 1 0 1.1-.2 1.3-.8.1-.6.2-1.1.3-1.6 0-.8-.1-1.3-1.4-1.5" fill="#fff"/></svg>）</p>
+<h2 id="%E4%BD%95%E4%B8%BA%E8%B7%A8%E5%9F%9F">何为跨域</h2><p>Web 站点众多，人心难测。当在访问未知站点时，我们无法确定其是否可信。如果该站点试图读取（譬如通过 ajax）我们在非同源站点如 gmail.com 的私人信息，这不仅侵犯了我们的隐私，同时也可能会损害我们的利益。为了避免此类安全问题的发生，用户代理（如浏览器）通常会遵循<strong>同源策略</strong>。</p>
+<h3>源</h3><p>根据 <a href="https://tools.ietf.org/html/rfc6454#section-4">RFC6454</a> 的定义，<strong>源（Origin）</strong>由协议（protocol）、主机（host）、端口（port）组成。对于两个 URL，当且仅当三者皆完全匹配时才被视为同源。</p>
+<p>对于 <code>http://www.example.com/a/b.html</code>，同源检测结果如下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">URL</th>
+<th style="text-align:center">同源</th>
+<th style="text-align:center">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="http://www.example.com/a/c.html">http://www.example.com/a/c.html</a></td>
+<td style="text-align:center">同</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://www.example.com/b.html">http://www.example.com/b.html</a></td>
+<td style="text-align:center">同</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://www.example.com/a/c.html">https://www.example.com/a/c.html</a></td>
+<td style="text-align:center">不同</td>
+<td style="text-align:center">协议</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://example.com/a/c.html">http://example.com/a/c.html</a></td>
+<td style="text-align:center">不同</td>
+<td style="text-align:center">主机</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://www.example.com:3000/a/c.html">http://www.example.com:3000/a/c.html</a></td>
+<td style="text-align:center">不同</td>
+<td style="text-align:center">端口</td>
+</tr>
+</tbody>
+</table>
+<h3>同源策略</h3><p>对于涉及网络的 API，<strong>同源策略（Same-Origin Policy）</strong>分别处理发送与接受的请求。通常来说，一个源被允许发送信息至另一个源，但不被允许从另一个源接收信息。它阻止了恶意站点从其他站点读取机密信息，也阻止了网络内容合法地读取其他站点提供的信息。</p>
+<p>根据 StackOverflow 上的这个<a href="http://stackoverflow.com/questions/9222822/why-do-browser-apis-restrict-cross-domain-requests">答案</a>，同源策略通常遵循以下规则：</p>
+<ul>
+<li>规则#1：不允许从不同源读取任何资源</li>
+<li>规则#2：允许写任意信息至不同源，但规则#1不允许读取响应 </li>
+<li>规则#3：允许自由发送跨域的 GET 与 POST 请求，但无法控制 HTTP 头</li>
+</ul>
+<p>对于不同标签、不同 API 同源策略的规则可能会有些许不同。</p>
+<p>例如，我之前的一篇<a href="2016/07/2016-07-13.html">答案</a>中引用了维基百科的图片，虽然其能正确的显示，但我无法读取该图像的信息（除了 DOM 元素的属性）：</p>
+<p><a href=images/cross-domain-image.png><img src=images/cross-domain-image.png alt=Cross Domain Image></a></p>
+<p>内嵌非同源脚本时，浏览器虽然<strong>能正确加载</strong>，但在脚本内发生的具体错误是无法显示的，只有同源脚本的错误才能被捕获。如果我试图使用 ajax 请求非同源的脚本文件时，同样地，我们无法获得该脚本的内容。以 Google Analytics 的脚本为例，ajax 无法读取响应：</p>
+<p><a href=images/cross-domain-ajax.png><img src=images/cross-domain-ajax.png alt=Cross Domain AJAX></a></p>
+<p>在 Network 能看见发出的 ajax 请求。浏览器确实下载了文件，但由于同源策略，会阻止我们读取脚本内容：</p>
+<p><a href=images/cross-domain-ajax-network.png><img src=images/cross-domain-ajax-network.png alt=Cross Domain AJAX Network></a></p>
+<h3>为何跨域</h3><p>由于同源策略限制过于严格，但为了实现某些特定功能（或者出于性能考虑），我们需要实现合理的跨域请求。</p>
+<h2 id="%E5%A6%82%E4%BD%95%E8%B7%A8%E5%9F%9F">如何跨域</h2><p>聪明的开发者想出了很多方法<del>（找到了很多漏洞）</del>来解决这个问题。</p>
+<h3>document.domain + iframe</h3><p>在同源策略中，存在例外情况，就是脚本（JavaScript）可以通过 <code>document.domain</code> 方法来改变本身的源。不过，只能设置为当前域的一个后缀（suffix）。例如，对于页面 <a href="http://baz.foo.com">http://baz.foo.com</a> 来说，其 <code>document.domain</code> 只能设置为 <strong>foo.com</strong>。如果设置为其他的域，则会报错。在更改域之后，<strong>新的域则会作为后续同源检测的依据</strong>。注意，对 <code>document.domain</code> 的赋值会导致域的端口号被 <code>null</code> 覆盖，所以如果存在端口号，必须得加上。</p>
+<p>利用这一特点，我们可以结合 document.domain 与 <code>&lt;iframe&gt;</code> 实现跨域。由于同源策略，当前页上非同源的 iframe 窗口里的内容我们是无法操作，但如果我们当前页与 iframe 窗口的域都改为相同（合法）域，则当前页与 iframe 页就能相互通信了。这样也就实现了跨域！</p>
+<p>一个栗子：</p>
+<p>假设父域为 <code>http://foo.com</code>，子域为 <code>http://baz.foo.com</code></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> iframe = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'iframe'</span>)
+
+<span class="hljs-comment">// 父域 -&gt; 子域</span>
+iframe.src = <span class="hljs-string">'http://baz.foo.com/iframe'</span>
+<span class="hljs-comment">// 子域 -&gt; 父域</span>
+iframe.src = <span class="hljs-string">'http://foo.com/iframe'</span>
+
+<span class="hljs-comment">// 发起请求方</span>
+iframe.style.display = <span class="hljs-string">'none'</span>
+<span class="hljs-built_in">document</span>.body.appendChild(iframe)
+
+iframe.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">document</span>.domain = <span class="hljs-string">'foo.com'</span> <span class="hljs-comment">// 设置为父域</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span> (<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(data)
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// 在 iframe 里创建 XHR。如果该 iframe 是非同源的窗口，下面会报错</span>
+    <span class="hljs-keyword">let</span> xhr = <span class="hljs-keyword">new</span> iframe.contentWindow.XMLHttpRequest()
+    xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span> (xhr.readyState === <span class="hljs-number">4</span> &amp;&amp; xhr.status === <span class="hljs-number">200</span>)
+        handle(xhr)
+    }
+    <span class="hljs-comment">// 如果使用当前页的 XHR，则会因跨域报错！（该 API 并没有 domain 之说~<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><circle cx="32" cy="32" r="30" fill="#ffdd67"/><path d="m49.7 34.4c-.4-.5-1.1-.4-1.9-.4-15.8 0-15.8 0-31.6 0-.8 0-1.5-.1-1.9.4-3.9 5 .7 19.6 17.7 19.6 17 0 21.6-14.6 17.7-19.6" fill="#664e27"/><path d="m33.8 41.7c-.6 0-1.5.5-1.1 2 .2.7 1.2 1.6 1.2 2.8 0 2.4-3.8 2.4-3.8 0 0-1.2 1-2 1.2-2.8.3-1.4-.6-2-1.1-2-1.6 0-4.1 1.7-4.1 4.6 0 3.2 2.7 5.8 6 5.8 3.3 0 6-2.6 6-5.8-.1-2.8-2.7-4.5-4.3-4.6" fill="#4c3526"/><path d="m24.3 50.7c2.2 1 4.8 1.5 7.7 1.5 2.9 0 5.5-.6 7.7-1.5-2.1-1.1-4.7-1.7-7.7-1.7s-5.6.6-7.7 1.7" fill="#ff717f"/><path d="m47 36c-15 0-15 0-29.9 0-2.1 0-2.1 4-.1 4 10.4 0 19.6 0 30 0 2 0 2-4 0-4" fill="#fff"/><g fill="#65b1ef"><path d="m59.4 36.9c7.3 7.7-2.6 18.1-9.9 10.4-5.3-5.6-5.6-16.3-5.6-16.3s10.2.3 15.5 5.9"/><path d="m14.5 47.3c-7.3 7.7-17.2-2.7-9.9-10.4 5.3-5.6 15.5-5.9 15.5-5.9s-.3 10.7-5.6 16.3"/></g><g fill="#664e27"><path d="m28.5 28.7c-1.9-5.1-4.7-7.7-7.5-7.7s-5.6 2.6-7.5 7.7c-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7 2.2 0 4.4.8 6.2 2.7.6.5 1.5-.4 1.3-.9"/><path d="m50.4 28.7c-1.9-5.1-4.7-7.7-7.5-7.7s-5.6 2.6-7.5 7.7c-.2.5.8 1.4 1.3.9 1.8-1.9 4-2.7 6.2-2.7s4.4.8 6.2 2.7c.5.5 1.5-.4 1.3-.9"/></g></svg>）</span>
+    xhr.open(<span class="hljs-string">'GET'</span>, <span class="hljs-string">'http://baz.foo.com/api/get'</span>)
+    xhr.send()
+  }
+}
+
+<span class="hljs-comment">// 接受请求方（iframe 窗口）</span>
+<span class="hljs-built_in">document</span>.domain = <span class="hljs-string">'foo.com'</span> <span class="hljs-comment">// 也设置为父域</span>
+</code></pre>
+<h3>JSONP</h3><p>JSONP （JSON with Padding），是 Web 开发者用来克服浏览器跨域限制的一种 JSON 扩展。如我们所知，AJAX 虽能下载却无法读取非同源的资源，而对于外联的 <code>&lt;script&gt;</code> 标签，浏览器会正确的下载并执行、求值，只是用户无法读取其中内容。借助 <code>&lt;script&gt;</code> 标签的这一特征，我们可以通过 JSONP 拿到跨域数据。</p>
+<p>举个栗子。假设存在一个 URL 提供 JSON 类型数据（可能动态从数据库查询），在 HTML 中插入一个链接为此的 <code>&lt;script&gt;</code> 标签并无法获得该处的数据，因为浏览器只把其解析为一个对象，并没有赋值或者别的什么东西。而如果使用 JSONP，<code>&lt;script&gt;</code> 标签 <code>src</code> 属性指向的那个 URL 提供的 JSON 数据必须被一段 JavaScript 代码包裹的数据。这段代码就会被浏览器解析并执行，请求方已定义的函数就能间接地获得 JSON 数据了。</p>
+<p>（不过，使用 JSONP 也存在许多安全问题。譬如，在当前页面会注入来自某 URL 的任意内容，这会很危险...）</p>
+<p>简易流程的请求与响应如下：</p>
+<pre><code class="lang-html"><span class="xml"><span class="hljs-comment">&lt;!-- 请求 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"application/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"http://example.com/12?=handle"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- 响应 --&gt;</span>
+<span class="hljs-comment">&lt;!-- handle(</span></span><span class="hljs-template-variable">{ username: 'shawn', status: 'OK' }</span><span class="xml"><span class="hljs-comment">) --&gt;</span></span>
+</code></pre>
+<p>可以在控制台跑的栗子：</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cb</span> (<span class="hljs-params">data</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(data)
+}
+
+<span class="hljs-comment">// http://doc.jsfiddle.net/use/echo.html#jsonp</span>
+<span class="hljs-keyword">var</span> jsonp = <span class="hljs-string">'http://jsfiddle.net/echo/jsonp/?callback=cb&amp;data=a'</span>
+
+<span class="hljs-comment">// Pure AJAX</span>
+<span class="hljs-keyword">var</span> ajax = <span class="hljs-keyword">new</span> XMLHttpRequest()
+ajax.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (ajax.readyState === <span class="hljs-number">4</span> &amp;&amp; ajax.status === <span class="hljs-number">200</span>)
+    <span class="hljs-built_in">console</span>.log(ajax.responseText)
+}
+ajax.open(<span class="hljs-string">'GET'</span>, jsonp, <span class="hljs-literal">true</span>)
+ajax.send()
+
+<span class="hljs-comment">// With JSONP</span>
+<span class="hljs-keyword">var</span> script = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'script'</span>)
+script.src = jsonp
+<span class="hljs-built_in">document</span>.body.insertBefore(script, <span class="hljs-built_in">document</span>.body.lastElementChild)
+</code></pre>
+<p>这是在控制台测试的结果：</p>
+<p><a href=images/cross-domain-jsonp.png><img src=images/cross-domain-jsonp.png alt=JSONP></a></p>
+<h3>window.postMessage</h3><p><code>window.postMessage</code> 是 HTML5 引入的<strong>可控</strong>的<strong>安全</strong>的<strong>可跨域通信</strong>的 API。其语法如下：</p>
+<pre><code class="lang-javascript">otherWindow.postMessage(<span class="hljs-keyword">message</span>, targetOrigin)
+</code></pre>
+<ul>
+<li>otherWindow：指的是被请求页面的 window 的引用，而不是当前页面</li>
+<li>message：指的是要传输的数据，可以是<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm">任意类型</a></li>
+<li>targetOrigin：指定了被请求页面的源应该满足的格式，可以是 URI（协议、主机、端口三者匹配），或者是 &quot;*&quot;，表示不加限制</li>
+</ul>
+<p>多说不如栗子：</p>
+<p>假设 A 站（<code>http://acfun.com</code>）要向 B 站（<code>http://bilibili.com</code>）发送一个消息，用 postMessage 该如何处理呢？</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// acfun.com</span>
+<span class="hljs-built_in">var</span> iframe = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'iframe'</span>)
+iframe.style.display = <span class="hljs-string">'none'</span>
+iframe.src = <span class="hljs-string">'http://bilibili.com'</span>
+<span class="hljs-built_in">document</span>.appendChild(iframe)
+
+iframe.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span> (<span class="hljs-params">xhr, method</span>) </span>{
+    <span class="hljs-keyword">if</span> (method === <span class="hljs-string">'GET'</span>)
+      <span class="hljs-built_in">console</span>.log(method, xhr.responseText)
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (method === <span class="hljs-string">'POST'</span>)
+      <span class="hljs-built_in">console</span>.log(method, xhr.responseText)
+  }
+
+  <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'message'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">var</span> message = e.data
+    handle(message.xhr, method)
+  })
+
+  <span class="hljs-comment">// GET</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span> (<span class="hljs-params"></span>) </span>{
+    iframe.contentWindow.postMessage({
+      <span class="hljs-attribute">method</span>: <span class="hljs-string">'GET'</span>,
+      <span class="hljs-attribute">url</span>: <span class="hljs-string">'http://bilibili.com/api/1'</span>
+    }, <span class="hljs-string">'http://bilibili.com'</span>)
+  }
+
+  <span class="hljs-comment">// POST</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">post</span> (<span class="hljs-params"></span>) </span>{
+    iframe.contentWindow.postMessage({
+      <span class="hljs-attribute">method</span>: <span class="hljs-string">'POST'</span>,
+      <span class="hljs-attribute">url</span>: <span class="hljs-string">'http://bilibili.com/api'</span>,
+      <span class="hljs-attribute">headers</span>: {
+        <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json;charset=UTF-8'</span>
+      },
+      <span class="hljs-attribute">data</span>: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attribute">id:</span><span class="hljs-string"> 1 }),
+    }, 'http</span>:<span class="hljs-comment">//bilibili.com')</span>
+  }
+}
+
+<span class="hljs-comment">// bilibili.com</span>
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'message'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-built_in">var</span> message = e.data
+
+  <span class="hljs-comment">// 在接受到消息时就根据消息内容发送 XHR 来请求相应的数据并发回原站点</span>
+  <span class="hljs-built_in">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest()
+  <span class="hljs-keyword">if</span> (xhr.headers)
+    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">var</span> header <span class="hljs-keyword">in</span> xhr.headers)
+      xhr.setRequestHeader(header)
+
+  xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (xhr.readyState === <span class="hljs-number">4</span> &amp;&amp; xhr.status === <span class="hljs-number">200</span>)
+      <span class="hljs-comment">// e.source 即为发送消息页的 window</span>
+      e.source.postMessage({
+        <span class="hljs-attribute">method</span>: message.method,
+        <span class="hljs-attribute">xhr</span>: {
+          <span class="hljs-attribute">responseText</span>: xhr.responseText
+        }
+      }, e.origin) <span class="hljs-comment">// e.origin 为发送消息页的 url</span>
+  }
+
+  xhr.open(message.method, message.url, <span class="hljs-literal">true</span>)
+  xhr.send(message.data)
+})
+</code></pre>
+<h3>CORS</h3><p>前面提到的三种跨域手段，除了 postMessage，其它的看起来都有点黑魔法<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><g fill="#c28fef"><path d="m32 25.4c1.1 0 4.4-15.5 4.5-19.8.1-2-2-3.7-4.5-3.7-2.5 0-4.6 1.6-4.5 3.7.2 4.3 3.4 19.8 4.5 19.8"/><path d="m25.4 32c0-1.1-15.5-4.4-19.8-4.5-2-.1-3.7 2-3.7 4.5 0 2.5 1.6 4.6 3.7 4.5 4.3-.2 19.8-3.4 19.8-4.5"/><path d="m27.4 24.7l-17.1-14.4 14.5 17.1c.7-1 1.6-1.9 2.6-2.7"/><path d="m36.6 39.3l17.1 14.5-14.4-17.2c-.8 1-1.7 1.9-2.7 2.7"/><path d="m58.3 27.5c-4.3.1-19.8 3.4-19.8 4.5 0 1.1 15.5 4.3 19.8 4.5 2 .1 3.7-2 3.7-4.5 0-2.5-1.6-4.6-3.7-4.5"/><path d="m32 38.6c-1.1 0-4.3 15.5-4.5 19.8-.1 2 2 3.7 4.5 3.7s4.6-1.6 4.5-3.7c-.1-4.3-3.4-19.8-4.5-19.8"/><path d="m39.3 27.4l14.5-17.1-17.2 14.4c1 .8 1.9 1.7 2.7 2.7"/><path d="m24.7 36.6l-14.4 17.1 17.1-14.5c-1-.7-1.9-1.6-2.7-2.6"/><circle cx="32" cy="32" r="4.5"/></g></svg>的感觉。如果能直接发请求，而不用整这些乱七八糟的东西就再好不过了。由于需求确实存在，W3C Web 工作组提出了一份新的建议标准，<a href="https://www.w3.org/TR/cors/">跨源资源共享（Cross-Origin Resource Share）</a>。该机制能使得安全地进行跨域数据传输成为可能。该机制<strong>需要服务端的配合</strong>才可生效。</p>
+<p>CORS 针对不同的请求有不同的处理方式，分为简单请求与非简单请求。</p>
+<p>简单请求指的是满足以下三点的请求：</p>
+<ul>
+<li>方法为 GET / HEAD / POST</li>
+<li>除用户代理设置的头外，只设置了 Accept / Accept-Language / Content-Language / Content-Type </li>
+<li>Content-Type 是以下三种之一：<ul>
+<li>application/x-www-form-urlencoded</li>
+<li>multipart/form-data</li>
+<li>text/plain</li>
+</ul>
+</li>
+</ul>
+<h4>简单请求</h4><p>浏览器会根据 URL 自动识别 XMLHttpRequest 是否跨域，如果跨域会自动为请求头添加 <code>Origin</code> 字段。发送出去后，如果响应头中包含 <code>Access-Control-Allow-Origin</code> 字段并且其值包含 <code>Origin</code> 的值，浏览器则不会拦截该响应。</p>
+<p>例如，我们对 <code>http://freegeoip.net/json/</code> 发出一个 XMLHttpRequest 请求，其请求与响应如图：</p>
+<p><a href=images/cors-simple.png><img src=images/cors-simple.png alt=CORS Simple></a></p>
+<p>如果对服务器未设置 <code>Access-Control-Allow-Origin</code> 响应头的发送请求，该请求会被视作跨域请求而被浏览器拦截。</p>
+<h4>携带 Cookie</h4><p>浏览器对 XMLHttpRequest 发起的跨域请求默认是不允许发送 Cookies（与验证信息） 的，在上图中也有体现。但如果将 XMLHttpRequest 的 <code>withCredentials</code> 属性置为 true，浏览器就会允许 Cookies（与验证信息）的发送。</p>
+<p>依然对 <code>http://freegeoip.net/json/</code> 发出一个 XMLHttpRequest 请求，并设置 <code>withCredentials</code> 为 true，其请求与响应如图：</p>
+<p><a href=images/cors-credentials.png><img src=images/cors-credentials.png alt=CORS Credentials></a></p>
+<p>不过要注意的是，如果服务端能够响应带 Credentials 的请求，则其允许的源必须为请求者，而不能是 &quot;*&quot;。</p>
+<h4>预请求</h4><p>对于非简单请求（不满足那三点），浏览器必须发送一个 <strong>OPTIONS</strong> 请求（预请求）给目的站点，来验证该跨域请求对目的站点来说是否可接受，以免造成安全事故。</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest()
+xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (xhr.readyState === <span class="hljs-number">4</span> &amp;&amp; xhr.status === <span class="hljs-number">200</span>)
+    <span class="hljs-built_in">console</span>.log(xhr.response)
+}
+xhr.open(<span class="hljs-string">'PUT'</span>, <span class="hljs-string">'http://freegeoip.net/json/'</span>, <span class="hljs-literal">true</span>) <span class="hljs-comment">// 非 GET/POST/HEAD</span>
+xhr.setRequestHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'application/json'</span>)
+xhr.setRequestHeader(<span class="hljs-string">'X-RANDOM'</span>, <span class="hljs-string">'123'</span>)
+xhr.send()
+</code></pre>
+<p>其请求与响应如图：</p>
+<p><a href=images/cors-preflight.png><img src=images/cors-preflight.png alt=CORS Preflight></a></p>
+<p>发现该服务并不支持非简单请求。</p>
+<p>下面是支持非简单请求应有的响应：</p>
+<p><a href=images/cors-preflight-1.png><img src=images/cors-preflight-1.png alt=CORS Option></a>
+<a href=images/cors-preflight-2.png><img src=images/cors-preflight-2.png alt=CORS Request></a></p>
+<p>koa 提供了一个简单的实现方案，<a href="https://github.com/koajs/cors/blob/master/index.js">koa-cors</a>。</p>
+<h2 id="%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</h2><h3>document.domain + iframe</h3><ul>
+<li>支持较老浏览器</li>
+<li>支持不止于 GET</li>
+<li>只需父、子域之间通信</li>
+</ul>
+<h3>JSONP</h3><ul>
+<li>支持较老浏览器</li>
+<li>只支持 GET</li>
+<li>支持跨完全不同的域</li>
+</ul>
+<h3>window.postMessage</h3><ul>
+<li>支持 <a href="http://caniuse.com/#search=postMessage">IE8+</a>，IE8/9 只支持在 iframes/frames 间传递消息，不支持弹出窗口；且 message 只能为字符串。<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><path d="m6.2 57.8c-5.2-5.1-5.6-13.2-.9-17.9l17.1-17.1 18.8 18.8-17.1 17.1c-4.7 4.7-12.8 4.3-17.9-.9" fill="#ffce31"/><path d="m58.3 26.8c5.3-5.3 4.9-14.3-1-20.1-5.8-5.8-14.8-6.2-20.1-1l-12.8 12.8-3.7 3.7-.1.1c-.7.7-.7 1.9 0 2.6l18.4 18.4c.7.7 1.8.7 2.6 0l.1-.1c0 0 0 0 0 0l3.7-3.7c0 0 0 0 0 0l12.9-12.7" fill="#42ade2"/></svg></li>
+<li>支持不止于 GET</li>
+<li>支持跨完全不同的域</li>
+</ul>
+<h3>CORS (推荐)</h3><ul>
+<li>支持 <a href="http://caniuse.com/#search=CORS">IE8+</a></li>
+<li>支持不止于 GET</li>
+<li>支持自定义 HTTP 头</li>
+<li>支持发送 Cookies</li>
+<li>支持跨完全不同的域</li>
+</ul>
+<h2 id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献</h2><ol>
+<li><a href="https://tools.ietf.org/html/rfc6454">RFC 6454 - The Web Origin Concept</a></li>
+<li><a href="https://www.w3.org/Security/wiki/Same_Origin_Policy">W3C - Same-Origin Policy</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">MDN - Same-Origin Policy</a></li>
+<li><a href="http://stackoverflow.com/questions/9222822/why-do-browser-apis-restrict-cross-domain-requests">StackOverflow - Why do browser APIs restrict cross-domain requests?</a></li>
+<li><a href="http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy">StackOverflow - Ways to circumvent the same-origin policy</a></li>
+<li><a href="https://en.wikipedia.org/wiki/JSONP">Wikipedia - JSONP</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">MDN - postMessage</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">MDN - HTTP Access Control</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html">跨域资源共享 CORS 详解</a></li>
+<li><a href="https://github.com/joyeecheung/cross-domain-with-koa">cross-domain-with-koa</a></li>
+</ol>
+</main><aside><nav><ul><li><a href="archive.html" target="_self" class="index">List</a></li><li><a href="index.html" target="_self" class="index">Home</a></li></ul></nav></aside><footer><p>Copyright &copy;&nbsp;<a href="https://github.com/daix6">Shawn Dai</a></p></footer><script type="text/javascript" src="js/anchor.js" async></script></body></html>
