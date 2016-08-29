@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="JavaScript 如何面向对象编程？"><title>August 26, 2016</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><base target="_blank" href="../../"><link rel="icon" type="image/x-ico" href="./images/favicon.ico"><link rel="stylesheet" type="text/css" href="css/tomorrow.css"><link rel="stylesheet" type="text/css" href="css/question.css"><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans:b|Open+Sans:i"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-63581862-3', 'auto');
+ga('send', 'pageview');</script></head><body class="light"><header><h1>JavaScript 如何面向对象编程？</h1></header><ul class="tags"><li style="background-color: #ECD9EA">OOP</li><li style="background-color: #CEBD9D">JavaScript</li><li style="background-color: #9999CB">ES6</li></ul><main><p>面向对象编程（Object-Oriented Programming）是基于对象的一种编程范式（paradigm）。其有三个广为人知的特性，封装（Encapsulation）、继承（Inheritance）和多态（Polymorphism），让编程更灵活、可维护。常见的面向对象编程方式都是基于类（class）的，在 C++、Java 等高级语言中都以类的形式得到实现。</p>
+<p>在 JavaScript（以下简称 JS）是基于对象的弱类型语言，并无类的概念，但其提供了原型机制，可用来支持面向对象编程。下面分别用 JS 实现 OOP 三大特性。</p>
+<h2 id="%E5%B0%81%E8%A3%85">封装</h2><p>之前我一直以为封装指的是方法与数据能放在一起（类），但一看维基百科才得知，<strong>封装是一种限制外部直接访问对象内部数据与方法的语言机制</strong>。在 C++ 中，封装就是通过 <code>public</code>、<code>private</code>（和 <code>protected</code>） 来实现的。</p>
+<p>JS 中并没有提供该机制，但可以借助闭包来实现私有变量与方法。</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> name = <span class="hljs-string">'Hankey'</span>
+
+  <span class="hljs-keyword">this</span>.getName = () =&gt; name;
+  <span class="hljs-keyword">this</span>.setName = n =&gt; { name = n };
+}
+<span class="hljs-keyword">let</span> fool = <span class="hljs-keyword">new</span> foo()
+fool.name  <span class="hljs-comment">// undefined</span>
+fool.getName() <span class="hljs-comment">// Hankey</span>
+fool.setName(<span class="hljs-string">'Mr.Hankey'</span>)
+fool.getName() <span class="hljs-comment">// Mr.Hankey</span>
+</code></pre>
+<h2 id="%E7%BB%A7%E6%89%BF">继承</h2><p>JS 没有类这个概念，但却提供了原型链（Prototype Chain）机制，使得继承成为可能。关于原型这里且不细谈。（BTW，<a href="http://bibliography.selflanguage.org/_static/self-power.pdf">Self</a> 是第一个实现原型的编程语言）</p>
+<p>虽说都是使用原型，但不同的使用方法会形成各样的继承方式。目前最为完善的似乎就是<strong>组合寄生式继承</strong>了。</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">papa</span> (<span class="hljs-params">name</span>) </span>{ <span class="hljs-comment">// 被 Stranger Things 影响了 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><g fill="#65b1ef"><ellipse cx="17.5" cy="59.9" rx="12.5" ry="1.5"/><ellipse cx="44" cy="60.2" rx="18" ry="1.8"/></g><circle cx="32" cy="32" r="30" fill="#ffdd67"/><path d="m44.7 46c-1.4-3.6-4.8-6-12.7-6-8 0-11.3 2.4-12.7 6-.7 1.9.3 5 .3 5 1.3 3.9 1.1 5 12.4 5 11.3 0 11.1-1.1 12.4-5 0 0 1.1-3.1.3-5" fill="#664e27"/><path d="m41 45c.1-.3 0-.6-.2-.8 0 0-2-2.2-8.8-2.2-6.8 0-8.8 2.2-8.8 2.2-.2.1-.2.5-.2.8l.2.6c.1.3.3.5.5.5h16.6c.2 0 .5-.2.5-.5l.2-.6" fill="#fff"/><g fill="#65b1ef"><path d="m44.5 60.5c2.3 0 4.6 0 6.8 0 8.2-9.9-1.5-20 .9-29.8-2.3 0-4.6 2.5-6.8 2.5-3.2 9.5 7.3 17.4-.9 27.3"/><path d="m19.5 60.5c-2.3 0-4.6 0-6.8 0-8.2-9.9 1.5-20-.9-29.8 2.3 0 4.6 2.5 6.8 2.5 3.2 9.5-7.3 17.4.9 27.3"/></g><g fill="#917524"><path d="m40.7 18.3c3 3 7.2 4.5 11.4 4.1.6-.1.9 2.1.2 2.2-4.9.4-9.7-1.3-13.1-4.8-.6-.5 1.1-1.9 1.5-1.5"/><path d="m12 22.4c4.2.4 8.4-1.1 11.4-4.1.4-.4 2.1 1 1.6 1.5-3.4 3.5-8.3 5.2-13.1 4.8-.9 0-.5-2.2.1-2.2"/></g><g fill="#664e27"><path d="m35.9 30.3c4.2 8 12.7 8 16.9 0 .2-.4-.3-.6-1-1-4.2 3.3-11.1 3-14.9 0-.6.4-1.2.6-1 1"/><path d="m11.2 30.3c4.2 8 12.7 8 16.9 0 .2-.4-.3-.6-1-1-4.2 3.3-11.1 3-14.9 0-.7.4-1.2.6-1 1"/></g></svg></span>
+  <span class="hljs-keyword">this</span>.name = name
+}
+papa.prototype.toString = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_toString</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Papa is '</span> + <span class="hljs-keyword">this</span>.name + <span class="hljs-string">'!'</span>)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baby</span> (<span class="hljs-params">name, gender</span>) </span>{
+  papa.call(<span class="hljs-keyword">this</span>, name) <span class="hljs-comment">// 组合</span>
+  <span class="hljs-keyword">this</span>.gender = gender
+}
+baby.prototype = <span class="hljs-built_in">Object</span>.create(papa.prototype) <span class="hljs-comment">// 寄生</span>
+baby.prototype.constructor = baby <span class="hljs-comment">// 修复重写原型导致的混乱</span>
+baby.prototype.toString2 = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_toString2</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Baby named '</span> + <span class="hljs-keyword">this</span>.name + <span class="hljs-string">', is a '</span> + <span class="hljs-keyword">this</span>.gender + <span class="hljs-string">'.'</span>);
+}
+
+<span class="hljs-keyword">var</span> eleven = <span class="hljs-keyword">new</span> baby(<span class="hljs-string">'11'</span>, <span class="hljs-string">'girl'</span>)
+eleven.toString()  <span class="hljs-comment">// Papa is 11!</span>
+eleven.toString2() <span class="hljs-comment">// Baby named 11, is a girl.</span>
+</code></pre>
+<p><code>Object.create(obj, [properties])</code> 在做的就是创建一个原型为 <code>obj</code> 的对象。它实际上做的事情基本如下：</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span> <span class="hljs-params">(obj)</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">F</span> <span class="hljs-params">()</span> </span>{}
+  F.prototype = obj
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> F()
+}
+</code></pre>
+<h2 id="%E5%A4%9A%E6%80%81">多态</h2><h2 id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</h2><ol>
+<li><a href="https://en.wikipedia.org/wiki/Object-oriented_programming">Object-oriented programming</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)">Encapsulation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)">Inheritance</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Prototype-based_programming">Prototype-based programming</a></li>
+</ol>
+</main><aside><nav><ul><li><a href="archive.html" target="_self" class="index">List</a></li><li><a href="index.html" target="_self" class="index">Home</a></li></ul></nav></aside><footer><p>Copyright &copy;&nbsp;<a href="https://github.com/daix6">Shawn Dai</a></p></footer><script type="text/javascript" src="js/anchor.js" async></script></body></html>
