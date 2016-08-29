@@ -15,10 +15,6 @@ header {
   background-color: var(--light-dark);
 }
 
-.index {
-  font-family: var(--serif);
-}
-
 .index:hover {
   color: color(var(--light-text) blackness(50%));
 }

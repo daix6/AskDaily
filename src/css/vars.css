@@ -1,6 +1,7 @@
 :root {
-  --serif: Cambria, Palatino Linotype, Palatino, Liberation Serif, STSong, SimSun, MS PMincho, serif;
-  --sans: Trebuchet MS, Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  --serif: Cambria, 'Palatino Linotype', Palatino, 'Liberation Serif', STSong, SimSun, MS PMincho, serif;
+  --sans: 'Trebuchet MS', 'Open Sans', 'Helvetica Neue', Helvetica, Tahoma, Arial, sans-serif;
+  --sans2: 'Open Sans', 'Helvetica Neue', Helvetica, Tahoma, Arial, sans-serif;
   --mono: Menlo, Monaco, Consolas, lucida console, Courier New, monospace;
 
   --light-bg: #FAFAFA;
