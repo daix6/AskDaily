@@ -30,8 +30,8 @@ const ghPages = require('gh-pages')
 const src = {
   root: './src',
   qs: './questions',
-  index: './src/index.jade',
-  archive: './src/archive.jade',
+  index: './src/index.pug',
+  archive: './src/archive.pug',
   templates: './src/templates',
   css: './src/css',
   js: './src/js',
@@ -118,7 +118,7 @@ gulp.task('index', () => {
         return {data}
       }))
     )
-    .pipe($.jade())
+    .pipe($.pug())
     .pipe(gulp.dest(dest.root))
     .pipe(bs.stream())
 })
@@ -145,7 +145,7 @@ gulp.task('archive', () => {
         return {data: _.groupBy(questions, 'range')}
       })
     ))
-    .pipe($.jade())
+    .pipe($.pug())
     .pipe(gulp.dest(dest.root))
     .pipe(bs.stream())
 })
@@ -158,7 +158,7 @@ function layoutQ (file) {
   file.frontMatter.tags = tags
 
   return _.assign(file.frontMatter, {
-    layout: `${src.templates}/layout.jade`,
+    layout: `${src.templates}/layout.pug`,
     title
   })
 }
@@ -191,7 +191,7 @@ gulp.task('serve', ['build'], () => {
   })
 
   gulp.watch(`${src.qs}/**/*.md`, ['questions'])
-  gulp.watch(`${src.templates}/layout.jade`, ['questions-layout'])
+  gulp.watch(`${src.templates}/layout.pug`, ['questions-layout'])
   gulp.watch(`${src.css}/**/*.css`, ['css'])
   gulp.watch(`${src.js}/**/*.js`, ['js'])
   gulp.watch(`${src.images}/**/*`, ['images'])

@@ -26,8 +26,8 @@ import ghPages from 'gh-pages'
 const src = {
   root: './src',
   qs: './questions',
-  index: './src/index.jade',
-  archive: './src/archive.jade',
+  index: './src/index.pug',
+  archive: './src/archive.pug',
   templates: './src/templates',
   css: './src/css',
   js: './src/js',
@@ -126,7 +126,7 @@ function index () {
         return {data}
       }))
     )
-    .pipe($.jade())
+    .pipe($.pug())
     .pipe(gulp.dest(dest.root))
     .pipe(bs.stream())
 }
@@ -161,7 +161,7 @@ function archive () {
         return { data: _.orderBy(data, 'month', 'desc') }
       })
     ))
-    .pipe($.jade())
+    .pipe($.pug())
     .pipe(gulp.dest(dest.root))
     .pipe(bs.stream())
 }
@@ -174,7 +174,7 @@ function layoutQ (file) {
   file.frontMatter.tags = tags
 
   return _.assign(file.frontMatter, {
-    layout: `${src.templates}/layout.jade`,
+    layout: `${src.templates}/layout.pug`,
     title
   })
 }
@@ -207,7 +207,7 @@ function watch (done) {
   })
 
   gulp.watch(`${src.qs}/**/*.md`, questions)
-  gulp.watch(`${src.templates}/layout.jade`, questionsLayout)
+  gulp.watch(`${src.templates}/layout.pug`, questionsLayout)
   gulp.watch(`${src.css}/**/*.css`, styles)
   gulp.watch(`${src.js}/**/*.js`, scripts)
   gulp.watch(`${src.images}/**/*`, images)
@@ -223,11 +223,11 @@ function clean () {
   return del(`${dest.root}/*`, `!${dest.root}/20*`)
 }
 
-const push2ghPages = () => {
+const push2ghPages = (done) => {
   return ghPages.publish(path.resolve(__dirname, dest.root), {
     remote: 'github',
     branch: 'gh-pages'
-  })
+  }, () => done())
 }
 
 const serve = gulp.series(build, watch)

@@ -1,5 +1,5 @@
-include ./templates/ga.jade
-include ./templates/copyright.jade
+include ./templates/ga.pug
+include ./templates/copyright.pug
 
 doctype
 html
@@ -9,7 +9,6 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='icon' type='image/x-ico' href='./images/favicon.ico')
     link(rel='stylesheet' type='text/css' href='./css/archive.css')
-    link(rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans')
 
     +ga('UA-63581862-3')
   body
@@ -22,8 +21,8 @@ html
             h3= item.questions[0].range
             each q in item.questions
               dd
-                a.link(href='#{q.link}')= q.day
-                span #{q.question}
+                a.link(href= q.link)= q.day
+                span= q.question
     aside
       nav
         ul

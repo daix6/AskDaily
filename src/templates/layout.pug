@@ -1,5 +1,5 @@
-include ./ga.jade
-include ./copyright.jade
+include ./ga.pug
+include ./copyright.pug
 
 doctype
 html
@@ -12,7 +12,6 @@ html
     link(rel='icon' type='image/x-ico' href='./images/favicon.ico')
     link(rel='stylesheet' type='text/css' href='css/tomorrow.css')
     link(rel='stylesheet' type='text/css' href='css/question.css')
-    link(rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans:b|Open+Sans:i')
 
     +ga('UA-63581862-3')
   body.light
@@ -25,7 +24,7 @@ html
           var color = [1,2,3,4,5,6];
           var str = 'background-color: #' + color.map(function() { return list[Math.floor(Math.random() * 6)]; }).join('');
 
-        li(style="#{str}")= tag
+        li(style=str)= tag
     main
       != contents
     aside
