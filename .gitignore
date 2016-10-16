@@ -4,3 +4,5 @@ drafts/
 
 .vscode
 lib/png
+
+.*.log.*

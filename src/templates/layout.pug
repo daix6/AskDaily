@@ -1,5 +1,6 @@
 include ./ga.pug
 include ./copyright.pug
+include ./external.pug
 
 doctype
 html
@@ -14,6 +15,8 @@ html
     link(rel='stylesheet' type='text/css' href='css/question.css')
 
     +ga('UA-63581862-3')
+    if d3
+      +d3
   body.light
     header
       h1= question

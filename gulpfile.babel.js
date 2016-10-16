@@ -172,6 +172,7 @@ function layoutQ (file) {
 
   let tags = file.frontMatter.tags.split(',').map(item => item.trim())
   file.frontMatter.tags = tags
+  file.frontMatter.d3 = Boolean(file.frontMatter.d3)
 
   return _.assign(file.frontMatter, {
     layout: `${src.templates}/layout.pug`,
