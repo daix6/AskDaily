@@ -99,6 +99,13 @@ svg {
   vertical-align: bottom;
 }
 
+.d3 {
+  display: block;
+  width: auto;
+
+  margin: 0 auto;
+}
+
 img {
   max-width: 100%;
 }

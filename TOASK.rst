@@ -13,15 +13,12 @@ Easy
 - web page rendering process
 - prototype `paper`_
 - closure
-- ES6
-
-  - this, arrow function
-
-- word-break, word-wrap, letter-spacing...
 - HTTP get, post
 - Design Patterns...(IN JS)
 - Redis cache
 - History API
+- Page Visibility API
+- Throttle, debounce
 
 .. _paper: http://bibliography.selflanguage.org/_static/self-power.pdf
 
@@ -34,6 +31,7 @@ Hard
 - CRUD RESEful
 - HTTP in deep
 - HTTP 1/1.1, HTTP 2 (SPDY)
+- HTTP Authentication
 - MVC MVP MVVM
 - git
 - Hardware acceleration
