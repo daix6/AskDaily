@@ -19,6 +19,7 @@ Easy
 - History API
 - Page Visibility API
 - Throttle, debounce
+- Beacon API
 
 .. _paper: http://bibliography.selflanguage.org/_static/self-power.pdf
 
