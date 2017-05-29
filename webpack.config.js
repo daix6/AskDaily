@@ -6,14 +6,26 @@ module.exports = {
     filename: '[name].js'
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       exclude: ['node_modules'],
-      loader: 'babel-loader'
+      loader: 'babel-loader',
+      options: {
+        presets: ['es2015']
+      }
+    }, {
+      test: /\.vue$/,
+      exclude: ['node_modules'],
+      loader: 'vue-loader',
+      options: {
+        loaders: {
+          postcss: 'postcss-loader',
+        }
+      }
     }]
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.vue', '.css'],
     alias: { vue: 'vue/dist/vue.js' }
   },
   devtool: 'source-map'

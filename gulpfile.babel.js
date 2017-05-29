@@ -10,6 +10,7 @@ import webpackConfig from './webpack.config.js'
 const paths = {
   index: 'src/index.html',
   entry: 'src/app.js',
+  components: 'src/components/*.vue',
   dest: 'dest/'
 }
 
@@ -49,7 +50,7 @@ function watch() {
     }
   });
 
-  gulp.watch(paths.entry, packJS);
+  gulp.watch([paths.entry, paths.components], packJS);
   gulp.watch(paths.index, moveStatics);
   gulp.watch(`${paths.dest}**/*`).on('change', bs.reload);
 }

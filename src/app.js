@@ -1,8 +1,7 @@
-import Vue from 'vue';
+import Vue from 'vue'
+import Calendar from './components/calendar.vue'
 
 let app = new Vue({
   el: "#app",
-  data: {
-    message: "Hello, 2017"
-  }
+  components: { Calendar }
 });
